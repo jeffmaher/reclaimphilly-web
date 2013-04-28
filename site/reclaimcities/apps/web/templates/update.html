@@ -3,54 +3,98 @@
 {% block header %}
     <script type="text/javascript">
 
+        var latitude =
+                {% if form.latitude.value %}
+                    "{{ form.latitude.value }}"
+                {% endif %}
+                {% if not form.latitude.value %}
+                    "{{ latitude|default_if_none:"" }}"
+                {% endif %};
+
+        var longitude =
+                {% if form.longitude.value %}
+                    "{{ form.longitude.value }}"
+                {% endif %}
+                {% if not form.longitude.value %}
+                    "{{ longitude|default_if_none:"" }}"
+                {% endif %};
 
 
+        // Page level variables
+        var rcMap;
+        var point = {
+            type: "Point",
+            coordinates: [latitude, longitude]
+        };
+
+        $(document).ready(function () {
+            rcMap = RC.map("mapDiv");
+            rcMap.addMarker(point);
+            rcMap.focus(point, 18);
+        });
     </script>
 
 {% endblock header %}
 
 {% block content %}
 
-    <div id="updateDiv">
-        <form action="/update/location/{{ id }}" method="post" enctype="multipart/form-data">
+    <div id="locationDiv">
+        <div id="locationInfoDiv">
+            <ul>
+                <li>
+                    <span class="locationInfoLabel">Address</span>
+                    <span class="locationInfoValue">
+                        {{ form.address.value }}
+                    </span>
+                </li>
+                                <li>
+                    <span class="locationInfoLabel">Latitude</span>
+                    <span class="locationInfoValue">
+                        {{ form.latitude.value }}
+                    </span>
+                </li>
+                                <li>
+                    <span class="locationInfoLabel">Longitude</span>
+                    <span class="locationInfoValue">
+                        {{ form.longitude.value }}
+                    </span>
+                </li>
+            </ul>
+
+        </div>
+
+        <form id="locationForm" action="/update/location/{{ id }}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
             <input type="text" name="id" hidden value="{{ id }}"/>
-            <div id="locationInfoDiv">
-                <p>Location Info:</p>
-                <ul>
-                    <li>Address: {{ form.address.value }}</li>
-                    <li>Latitude: {{ form.latitude.value }}</li>
-                    <li>Address: {{ form.longitude.value }}</li>
-                </ul>
-            </div>
 
-            <div id="updateTypeFormField">
+            <div class="locationFormField">
                 {{ form.type.label_tag }}
                 {{ form.type }}
                 {{ form.type.errors }}
             </div>
 
-            <div id="updateDescriptionFormField">
+            <div class="locationFormField">
                 {{ form.description.label_tag }}
                 {{ form.description }}
                 {{ form.description.errors }}
             </div>
 
-            <div id="updatePictureFormField">
+            <div class="locationFormField">
                 {{ form.picture.label_tag }}
                 {{ form.picture }}
                 {{ form.picture.errors }}
             </div>
 
 
+            <div id="locationSubmitField">
+                <input type="submit" value="Update Location"/>
+                <a href="/location/{{ id }}" class="cancelLink">Cancel</a>
+            </div>
 
-
-            <input type="submit" value="Update Location"/>
         </form>
-
-
-
     </div>
+
+    <div id="mapDiv"></div>
 
 {% endblock content %}
