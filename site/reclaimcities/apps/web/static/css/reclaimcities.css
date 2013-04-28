@@ -195,7 +195,7 @@ body a:hover, .clickableText:hover {
     margin: 0 auto;
     padding-left: 10px;
     padding-right: 10px;
-
+    margin-bottom: 20px;
 }
 
 #locationInfoDiv {
@@ -214,7 +214,7 @@ body a:hover, .clickableText:hover {
     font-weight: bold;
 }
 
-#locationInfoDiv .locationInfoValue, .viewValue {
+#locationInfoDiv .locationInfoValue, #viewAddressValue, #viewTypeValue {
     display: block;
     text-transform: capitalize;
 }
@@ -279,4 +279,8 @@ body a:hover, .clickableText:hover {
     max-height: 200px;
     max-width: 200px;
     border: solid;
+}
+
+.addressText {
+    text-transform: capitalize;
 }

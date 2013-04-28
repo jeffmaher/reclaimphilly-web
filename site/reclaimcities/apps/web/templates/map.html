@@ -79,7 +79,7 @@
 
 
         // Address
-        resultHtml += '<div class="tableCell">';
+        resultHtml += '<div class="tableCell addressText">';
         resultHtml += points[index].properties.address;
         resultHtml += '</div>';
 
@@ -95,7 +95,7 @@
 
         // View details
         resultHtml += '<div class="tableCell centeredText">';
-        resultHtml += '<a href="/location/' + points[index].properties.id + '">Details</a>';
+        resultHtml += '<a href="/location/' + points[index].properties.id + '">View Details</a>';
         resultHtml += '</div>';
 
         resultHtml += '</div>';
@@ -152,7 +152,7 @@
 
     function makeAddResultsHeader() {
         var headerRowHtml = '<div class="tableHeaderRow">';
-        headerRowHtml += '<div class="tableHeaderCell">Description</div>';
+        headerRowHtml += '<div class="tableHeaderCell">Address/Description</div>';
         headerRowHtml += '<div class="tableHeaderCell centeredText">See on Map</div>';
         headerRowHtml += '<div class="tableHeaderCell centeredText">Add or View</div>';
         headerRowHtml += '</div>';
@@ -167,12 +167,14 @@
         points.push(point);
 
         var rowHtml = '<div class="tableRow">' +
-                        '<div class="tableCell">(' + index + ') ' + point.properties.address + '</div>' +
+                        '<div class="tableCell addressText">' + point.properties.address + '</div>' +
                         '<div class="tableCell centeredText"><span class="clickableText" onclick="focusMap(' + index + ')">Map</span></div>' +
                         '<div class="tableCell centeredText"><a href="/location/' + point.properties.id + '">View Location</a></div>'
                 ;
 
-        rcMap.addMarker(point);
+        rcMap.addMarker(point) //TODO This references Leaflet code directly  -- see if this can be abstracted
+                .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {offset: L.point(0, -60)});
+
         $('#resultTable').append(rowHtml);
 
         return rowHtml;
@@ -184,11 +186,18 @@
         points.push(point);
 
         var rowHtml = '<div class="tableRow">' +
-                        '<div class="tableCell">(' + index + ') Not Yet Added Location</div>' +
+                        '<div class="tableCell">(Not Yet Added Location)</div>' +
                         '<div class="tableCell centeredText"><span class="clickableText" onclick="focusMap(' + index + ')">Map</span></div>' +
                         '<div class="tableCell centeredText">' + makeAddLocationLink(point) + '</div>'
                 ;
-        rcMap.addMarker(point);
+
+        var marker = rcMap.addMarker(point)
+                .bindPopup("Is this <span class='addressText'>" + point.properties.address + "</span>?<br>If so... " + makeAddLocationLink(point), {offset: L.point(0,-60)} );
+
+        if(index == 0) {
+            marker.openPopup();
+        }
+
         $('#resultTable').append(rowHtml);
 
         return rowHtml;
