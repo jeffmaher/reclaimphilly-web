@@ -153,7 +153,11 @@ RC.map = function (divId) {
             // Nearby points and callback
             RC.Data.getNearbyLocations(searchPoint, function (nearbyPoints) {
                 for (var i = 0; i < nearbyPoints.length; i++) {
-                    that.addMarker(nearbyPoints[i]);
+                    var point = nearbyPoints[i];
+                    that.addMarker(point)
+                        .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {
+                            offset: L.point(0,-60)
+                    });//);
                 }
 
                 if (callbackFunction != null) {
