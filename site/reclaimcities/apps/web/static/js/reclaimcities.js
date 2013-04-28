@@ -83,12 +83,11 @@ RC.map = function (divId) {
         var marker;
 
         if (icon != null) {
-            marker = L.marker(point.coordinates, {icon: icon});
+            // do nothing
         }
-        else {
+        else if( "properties" in point && "type" in point.properties){
             var type = point.properties.type;
 
-            icon = RC.Pins.X;
             if (type == "com") {
                 icon = RC.Pins.Commercial;
             }
@@ -98,9 +97,15 @@ RC.map = function (divId) {
             else if (type == "lot") {
                 icon = RC.Pins.Lot;
             }
-
-            marker = L.marker(point.coordinates, {icon: icon});
+            else {
+                icon = RC.Pins.X;
+            }
         }
+        else {
+            icon = RC.Pins.X;
+        }
+
+        marker = L.marker(point.coordinates, {icon: icon});
 
         marker.addTo(that.map);
         that.markersArray.push(marker);
@@ -374,21 +379,19 @@ RC.Utils.addUrlParams = function (baseUrl, params) {
 
 RC.Pins = {
     X: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x_small.png',
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x.png',
         iconAnchor: [24, 65]
     }),
     Commercial: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-commercial_small.png',
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-commercial.png',
        	iconAnchor: [24, 65]
     }),
     Residential: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential_small.png',
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential.png',
         iconAnchor: [24, 65]
     }),
     Lot: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot_small.png',
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot.png',
         iconAnchor: [24, 65]
     })
 };
-
-
