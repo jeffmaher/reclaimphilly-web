@@ -1,0 +1,5 @@
+Django
+Pillow
+anyjson
+requests
+simplejson

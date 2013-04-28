@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <script type="text/javascript">
+
+
+
+    </script>
+
+{% endblock header %}
+
+{% block content %}
+
+    <div id="addDiv">
+        <form action="/add/location" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        {# TODO Document what is going on in here #}
+            <input type="hidden" name="{{ form.address.html_name }}"
+                    {% if form.address.value %}
+                        value="{{ form.address.value }}"
+                    {% endif %}
+                    {% if not form.address.value %}
+                        value="{{ address|default_if_none:"" }}"
+                    {% endif %}
+                    />
+            <input type="hidden" name="{{ form.latitude.html_name }}"
+                    {% if form.latitude.value %}
+                   value="{{ form.latitude.value }}"
+                    {% endif %}
+                    {% if not form.latitude.value %}
+                   value="{{ latitude|default_if_none:"" }}"
+                    {% endif %}
+                    />
+            <input type="hidden" name="{{ form.longitude.html_name }}"
+                    {% if form.longitude.value %}
+                   value="{{ form.longitude.value }}"
+                    {% endif %}
+                    {% if not form.longitude.value %}
+                   value="{{ longitude|default_if_none:"" }}"
+                    {% endif %}
+                    />
+            <div id="locationInfoDiv">
+                <p>Location Info:</p>
+                <ul>
+                    <li>
+                        Address:
+                        {% if form.address.value %}
+                            {{ form.address.value }}
+                        {% endif %}
+                        {% if not form.address.value %}
+                            {{ address|default_if_none:"(missing)" }}
+                        {% endif %}
+                    </li>
+                    <li>
+                        Latitude:
+                        {% if form.latitude.value %}
+                            {{ form.latitude.value }}
+                        {% endif %}
+                        {% if not form.latitude.value %}
+                            {{ latitude|default_if_none:"(missing)" }}
+                        {% endif %}
+                    </li>
+                    <li>
+                        Address:
+                        {% if form.longitude.value %}
+                            {{ form.longitude.value }}
+                        {% endif %}
+                        {% if not form.longitude.value %}
+                            {{ longitude|default_if_none:"(missing)" }}
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+
+            <div id="addTypeFormField">
+                {{ form.type.label_tag }}
+                {{ form.type }}
+                {{ form.type.errors }}
+            </div>
+
+            <div id="addDescriptionFormField">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+
+            <div id="addPictureFormField">
+                {{ form.picture.label_tag }}
+                {{ form.picture }}
+                {{ form.picture.errors }}
+            </div>
+
+
+
+
+            <input type="submit" value="Add Location"/>
+        </form>
+
+
+
+    </div>
+
+{% endblock content %}

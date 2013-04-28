@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <script type="text/javascript">
+    /**
+     * Page scoped variables
+     */
+    var rcMap; // init after document is ready
+    var points = [];
+
+    /**
+     * Initialize the map
+     */
+    $(document).ready(function () {
+        rcMap = RC.map("mapDiv");
+    });
+
+    /**
+     * Search for properties with SEARCH_RADIUS of
+     * the address in #streetAddressInput
+     */
+    function search() {
+        clearLocations();
+
+        // Get street address from form
+        var streetAddress = $("#streetAddressInput").val();
+        if (streetAddress == '') {
+            return;
+        }
+
+        // Clear the map
+        rcMap.clearLayers();
+        points = [];
+
+        // Geocode the street address and add nearby locations to map
+        //      Dev Note: Logic is a little hairy, because geocoding is asynchronous //TODO make less complicated by making geocoding synchronous
+        rcMap.markNearbyLocations(streetAddress, function (searchPoint, nearbyPoints) {
+            points = nearbyPoints;
+
+            // Nearby Points / Search Results
+            if (points.length > 0) {
+                addSearchResultsTable();
+            }
+            else {
+                $('#resultTable').append('<div id="resultsNoneFound">No vacant properties found near that address.</div>');
+            }
+
+            var resultDiv = $('#resultDiv');
+            resultDiv.show();
+            $(document.body).animate({'scrollTop': resultDiv.offset().top});
+        });
+    }
+
+    function addSearchResultsTable() {
+        var resultsHtml = makeSearchResultsHeaderRow();
+        for (var i = 0; i < points.length; i++) {
+            resultsHtml += makeSearchResultRow(i);
+        }
+
+        $('#resultTable').append(resultsHtml);
+    }
+
+    function makeSearchResultsHeaderRow() {
+        var headerRowHtml = '<div class="tableHeaderRow">';
+        headerRowHtml += '<div class="tableHeaderCell">Address</div>';
+        headerRowHtml += '<div class="tableHeaderCell">Description</div>';
+        headerRowHtml += '<div class="tableHeaderCell centeredText">See on Map</div>';
+        headerRowHtml += '<div class="tableHeaderCell centeredText">View Details</div>';
+        headerRowHtml += '</div>';
+
+        return headerRowHtml;
+    }
+
+    //TODO document
+    function makeSearchResultRow(index) {
+
+        var isOdd = (index % 2) != 0;
+        var resultHtml = '<div class="tableRow ' + (isOdd ? 'tableRowOdd' : '' ) + '">';
+
+
+        // Address
+        resultHtml += '<div class="tableCell">';
+        resultHtml += points[index].properties.address;
+        resultHtml += '</div>';
+
+        // Description
+        resultHtml += '<div class="tableCell">';
+        resultHtml += points[index].properties.description;
+        resultHtml += '</div>';
+
+        // Focus map
+        resultHtml += '<div class="tableCell centeredText">';
+        resultHtml += '<span class="clickableText" onclick="focusMap(' + index + ')">Map</span>';
+        resultHtml += '</div>';
+
+        // View details
+        resultHtml += '<div class="tableCell centeredText">';
+        resultHtml += '<a href="/location/' + points[index].properties.id + '">Details</a>';
+        resultHtml += '</div>';
+
+        resultHtml += '</div>';
+
+        return resultHtml;
+    }
+
+    function focusMap(index) {
+        rcMap.focus(points[index], 18);
+        $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
+    }
+
+    // ------ ADD ------
+    /**
+     *
+     * @param streetAddress
+     */
+    function findLocations() {
+        var streetAddress = $('#streetAddressInput').val();
+
+        // TODO add a searching/loading layer
+
+        // Clear the map and table
+        clearLocations();
+
+        makeAddResultsHeader();
+
+        var addPointIndex = 0;
+        rcMap.markPotentialLocations(streetAddress, makeAddInDataLocationRow, makeAddNotInDataLocationRow,
+                function () {
+                    //finished
+
+                    if(points.length > 0) {
+                        var resultDiv = $('#resultDiv');
+                        resultDiv.show();
+                        $(document.body).animate({'scrollTop': resultDiv.offset().top});
+                        rcMap.focus(points[0]);
+                    }
+                }
+        );
+    }
+
+    /**
+     *
+     */
+    function clearLocations() {
+        rcMap.clearLayers();
+        $('#resultDiv').css('display', 'none');
+        $('#resultDiv .tableHeaderRow').remove(); // TODO make the headers static in the HTML, just show/hide them
+        $('#resultDiv .tableRow').remove();
+        $('#resultDiv #resultsNoneFound').remove();
+        points = [];
+    }
+
+    function makeAddResultsHeader() {
+        var headerRowHtml = '<div class="tableHeaderRow">';
+        headerRowHtml += '<div class="tableHeaderCell">Description</div>';
+        headerRowHtml += '<div class="tableHeaderCell centeredText">See on Map</div>';
+        headerRowHtml += '<div class="tableHeaderCell centeredText">Add or View</div>';
+        headerRowHtml += '</div>';
+
+        $('#resultTable').append(headerRowHtml);
+
+        return headerRowHtml;
+    }
+
+    function makeAddInDataLocationRow(point) {
+        var index = points.length;
+        points.push(point);
+
+        var rowHtml = '<div class="tableRow">' +
+                        '<div class="tableCell">(' + index + ') ' + point.properties.address + '</div>' +
+                        '<div class="tableCell centeredText"><span class="clickableText" onclick="focusMap(' + index + ')">Map</span></div>' +
+                        '<div class="tableCell centeredText"><a href="/location/' + point.properties.id + '">View Location</a></div>'
+                ;
+
+        rcMap.addMarker(point);
+        $('#resultTable').append(rowHtml);
+
+        return rowHtml;
+    }
+
+    function makeAddNotInDataLocationRow(point) {
+        var index = points.length;
+        point.properties.address = $("#streetAddressInput").val(); //needed for TAMU geocoder, since address isn't in results -- this passes data to the add screen
+        points.push(point);
+
+        var rowHtml = '<div class="tableRow">' +
+                        '<div class="tableCell">(' + index + ') Not Yet Added Location</div>' +
+                        '<div class="tableCell centeredText"><span class="clickableText" onclick="focusMap(' + index + ')">Map</span></div>' +
+                        '<div class="tableCell centeredText">' + makeAddLocationLink(point) + '</div>'
+                ;
+        rcMap.addMarker(point);
+        $('#resultTable').append(rowHtml);
+
+        return rowHtml;
+    }
+
+    function makeAddLocationLink(point) {
+        var url = RC.Utils.addUrlParams("/add/location", {
+            latitude: point.coordinates[0],
+            longitude: point.coordinates[1],
+            address: point.properties.address
+        });
+
+        return '<a href="' + url + '">Add Location</a>';
+    }
+
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="searchDiv">
+        <p>
+            <strong>INSTRUCTIONS</strong>&nbsp;
+            Enter an address (with the configured city bounds) to <em>search</em> for vacant properties nearby OR
+            <em>add</em> an address of a vacant property.
+        </p>
+        <input id="streetAddressInput" type="text" value=""/>
+        <input type="button" onclick="search()" value="Search"/>
+        <input type="button" onclick="findLocations()" value="Add"/>
+    </div>
+
+    <div id="resultDiv">
+        <div id="resultTable" class="table"></div>
+    </div>
+
+    <div id="mapDiv"></div>
+
+    <div id="mapKeyDiv">
+        <ul>
+            {% load staticfiles %}
+            <li class="mapKeyLabel">Map Key</li>
+            <li><img src="{% static 'images/pin-residential.png' %}"/>Residential</li>
+            <li><img src="{% static 'images/pin-commercial.png' %}"/>Commercial</li>
+            <li><img src="{% static 'images/pin-lot.png' %}"/>Lot</li>
+        </ul>
+
+    </div>
+{% endblock %}

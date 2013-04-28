@@ -2,3 +2,5 @@
 *.pot
 *.pyc
 local_settings.py
+dev_database.sqlite
+site/env

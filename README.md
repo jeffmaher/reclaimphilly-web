@@ -1,4 +1,6 @@
 reclaimcities-web
 =================
 
-A web application for tracking vacant property
+Reclaim Cities Web Application
+
+Please consult the `docs` folder

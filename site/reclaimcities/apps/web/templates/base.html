@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load staticfiles %}
+{% comment %}
+Since we probalby don't want to server JS files through a Django view
+we can set some variables there that will be available to the loaded JS files.
+I namespaced them so they don't interfere with anything
+{% endcomment %}
+    <script type="text/javascript">
+        var reclaim;
+        reclaim = {'globals': {
+            'STATIC_URL': '{% static '' %}'
+            }
+        };
+    </script>
+
+    <link type="text/css" rel="stylesheet" href="{% static 'js/leaflet/leaflet.css' %}" />
+    <link type="text/css" rel="stylesheet" href="{% static 'css/reclaimcities.css' %}" />
+
+
+    <script src="{% static 'js/leaflet/leaflet.js' %}"></script>
+    <script src="{% static 'js/jquery/jquery-1.8.3.min.js' %}"></script>
+    <script src="{% static 'js/jquery/jQuery.XDomainRequest.js' %}"></script>
+    <script src="{% static 'js/reclaimcities.js' %}"></script>
+
+    {% block header %}{% endblock %}
+
+</head>
+
+<body>
+
+<div id="navDiv">
+    <ul>
+        <li><a class="navItem" href="/map">Map</a></li>
+        <li><a class="navItem" href="/blog">Blog</a></li>
+        <li><a class="navItem" href="/resources">Resources</a></li>
+        <li><a class="navItem" href="/about">About</a></li>
+        <li><a class="navItem" href="/help">Help</a></li>
+    </ul>
+</div>
+
+{% block heading %}
+<div id="headingDiv">
+    <div id="logoDiv">
+        <img id="headingLogo" src="{% static 'images/logo_beta.png' %}">
+    </div>
+    <div id="descriptionDiv">
+        A transparent approach to abandoned &amp; vacant property in our communities; for the people, by the people.
+    </div>
+    <div id="socialMediaDiv">
+        <ul>
+        	<!-- Add social media links to your project -->
+            <li><a href="https://twitter.com/" target="_social"><img src="{% static 'images/twitter.png' %}"/></a></li>
+            <li><a href="https://www.facebook.com/" target="_social"><img src="{% static 'images/facebook.png' %}"/></a></li>
+            <li><a href="https://plus.google.com/" target="_social"><img src="{% static 'images/googleplus.png' %}"/></a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %} {% endblock %}
+
+<div id="footerDiv">
+    <p>The Reclaim Cities engine was originally developed by <a href="http://www.pacdc.org/" target="_pacdc">PACDC</a> and volunteers. Feel free to <a href="http://github.com/ReclaimCities" target="_github">use our code</a> for your city.</p>
+    <p><a href="http://openstreetmaps.org" target="_new">Map by OpenStreetMap</a> - <a href="http://geoservices.tamu.edu" target="_new">Geocoding by Texas A&amp;M Geoservices</a> - <a href="http://maps.stamen.com" target="_new">Map tiles by Stamen Designs</a> - Vacant property data by you!</p>
+</div>
+
+</body>
+</html>

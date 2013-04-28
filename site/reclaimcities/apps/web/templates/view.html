@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block header %}
+    <script type="text/javascript">
+
+    // Page level variables
+    var rcMap;
+    var point = {
+        type: "Point",
+        coordinates: [{{ location.latitude }}, {{ location.longitude }}],
+        properties: {
+            type: "{{ location.type }}"
+        }
+    };
+
+    $(document).ready(function() {
+        rcMap = RC.map("mapDiv");
+        rcMap.addMarker(point);
+        rcMap.focus(point, 18);
+    });
+
+
+    </script>
+
+{% endblock header %}
+
+{% block content %}
+
+    <div id="viewDiv">
+        <div id="viewAddressKey" class="viewKey">Address</div>
+        <div id="viewAddressValue" class="viewValue">{{ location.address }}</div>
+
+        <div id="viewTypeKey" class="viewKey">Type</div>
+        <div id="viewTypeValue" class="viewValue">{{ location.type }}</div>
+
+        <div id="viewDescriptionKey" class="viewKey">Description</div>
+        <div id="viewDescriptionValue" class="viewValue">{{ location.description }}</div>
+
+        <div id="viewPictureKey" class="viewKey">Picture</div>
+        <div id="viewPictureValue" class="viewValue">
+        {% if location.picture %}
+            <img src="/media/{{ location.picture }}" alt="(no picture)">
+        {%  endif %}
+        {%  if not location.picture %}
+            (no picture loaded yet) <!--TODO Add a filler picture to indicate nothing has been loaded -->
+        {%  endif %}
+        </div>
+        <div id="viewEditLink">
+            <a href="/update/location/{{location.id}}">Edit</a>
+        </div>
+    </div>
+
+    <div id="mapDiv"></div>
+
+{% endblock content %}

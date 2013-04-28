@@ -1,0 +1,192 @@
+/**
+ *  brown/red: #67564C
+    lite brown: #AFA59F
+
+ *  green/grey: #62B6A9
+ *  Light grey: #DEDAD7
+ */
+
+
+#mapDiv
+{
+    height: 500px;
+	width: 100%;
+    margin: 0px auto;
+}
+
+html {
+    height: 100%
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+body a, .clickableText {
+    text-decoration: none;
+    color: #67564C;
+}
+
+body a:hover, .clickableText:hover {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+#navDiv {
+    text-transform: uppercase;
+    width: 100%;
+    display: block;
+    text-align: center;
+
+    border-top-style: solid;
+    border-top-color: #67564C;
+
+    border-bottom-style: solid;
+    border-bottom-color: #62B6A9;
+}
+
+#navDiv ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#navDiv ul li {
+    display: inline-block;
+    text-align: center;
+    width: 18%;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+#headingDiv {
+    text-align: center;
+    vertical-align: middle;
+    margin-left: 15%;
+    margin-bottom: 20px;
+}
+
+#headingDiv div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#logoDiv {
+}
+
+#descriptionDiv {
+    font-size: xx-large;
+    font-style: italic;
+    text-align: left;
+    padding-left: 5%;
+    padding-right: 10%;
+    color: #62B6A9;
+}
+
+#socialMediaDiv {
+    text-align: right;
+}
+
+#socialMediaDiv ul {
+    list-style-type: none;
+}
+
+#searchDiv {
+    background-color: #AFA59F;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+#streetAddressInput {
+    width: 60%;
+}
+
+#resultDiv {
+    display: none;
+}
+
+.table {
+}
+
+.tableHeaderRow {
+    background-color: #AFA59F;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.tableHeaderCell {
+    vertical-align: middle;
+}
+
+.tableRow {
+}
+
+.tableRowOdd {
+    background-color: #DEDAD7;
+}
+
+.tableHeaderCell, .tableCell {
+    display: inline-table;
+    width: 20%;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#mapKeyDiv {
+    height: 66px;
+    background-color: #DEDAD7;
+    padding: 0;
+    margin: 0;
+}
+
+#mapKeyDiv ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+#mapKeyDiv li {
+    display: inline-table;
+    width: 23%;
+    height: 100%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+#mapKeyDiv li img {
+    vertical-align: middle;
+    margin-right: 10px;
+}
+
+.mapKeyLabel {
+    background-color: #AFA59F;
+    height: 100%;
+    line-height: 66px;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+}
+
+.textContentDiv {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #DEDAD7;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 10px;
+}
+
+.centeredText {
+    text-align: center;
+}
