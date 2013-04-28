@@ -50,7 +50,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -159,4 +159,4 @@ LOGGING = {
     }
 }
 
-TAMU_GEOCODING_API_KEY = "ADD YOUR API KEY HERE"
+TAMU_GEOCODING_API_KEY = "c1d795253faa40379b4c192685a9219d"
