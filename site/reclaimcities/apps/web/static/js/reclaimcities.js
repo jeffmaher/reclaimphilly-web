@@ -375,23 +375,19 @@ RC.Utils.addUrlParams = function (baseUrl, params) {
 RC.Pins = {
     X: L.icon({
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x_small.png',
-        iconSize: [25, 36],
-        iconAnchor: [12, 36]
+        iconAnchor: [24, 65]
     }),
     Commercial: L.icon({
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-commercial_small.png',
-        iconSize: [25, 36],
-        iconAnchor: [12, 36]
+       	iconAnchor: [24, 65]
     }),
     Residential: L.icon({
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential_small.png',
-        iconSize: [25, 36],
-        iconAnchor: [12, 36]
+        iconAnchor: [24, 65]
     }),
     Lot: L.icon({
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot_small.png',
-        iconSize: [25, 36],
-        iconAnchor: [12, 36]
+        iconAnchor: [24, 65]
     })
 };
 
