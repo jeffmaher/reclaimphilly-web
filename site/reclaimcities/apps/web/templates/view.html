@@ -3,21 +3,21 @@
 {% block header %}
     <script type="text/javascript">
 
-    // Page level variables
-    var rcMap;
-    var point = {
-        type: "Point",
-        coordinates: [{{ location.latitude }}, {{ location.longitude }}],
-        properties: {
-            type: "{{ location.type }}"
-        }
-    };
+        // Page level variables
+        var rcMap;
+        var point = {
+            type: "Point",
+            coordinates: [{{ location.latitude }}, {{ location.longitude }}],
+            properties: {
+                type: "{{ location.type }}"
+            }
+        };
 
-    $(document).ready(function() {
-        rcMap = RC.map("mapDiv");
-        rcMap.addMarker(point);
-        rcMap.focus(point, 18);
-    });
+        $(document).ready(function () {
+            rcMap = RC.map("mapDiv");
+            rcMap.addMarker(point);
+            rcMap.focus(point, 18);
+        });
 
 
     </script>
@@ -26,27 +26,46 @@
 
 {% block content %}
 
-    <div id="viewDiv">
-        <div id="viewAddressKey" class="viewKey">Address</div>
-        <div id="viewAddressValue" class="viewValue">{{ location.address }}</div>
+    <div class="viewRowDiv">
+        <div class="viewColumnDiv">
+            <div id="viewAddressKey" class="viewKey">Address</div>
+            <div id="viewAddressValue" class="viewValue">{{ location.address }}</div>
 
-        <div id="viewTypeKey" class="viewKey">Type</div>
-        <div id="viewTypeValue" class="viewValue">{{ location.type }}</div>
-
-        <div id="viewDescriptionKey" class="viewKey">Description</div>
-        <div id="viewDescriptionValue" class="viewValue">{{ location.description }}</div>
-
-        <div id="viewPictureKey" class="viewKey">Picture</div>
-        <div id="viewPictureValue" class="viewValue">
-        {% if location.picture %}
-            <img src="/media/{{ location.picture }}" alt="(no picture)">
-        {%  endif %}
-        {%  if not location.picture %}
-            (no picture loaded yet) <!--TODO Add a filler picture to indicate nothing has been loaded -->
-        {%  endif %}
+            <div id="viewTypeKey" class="viewKey">Type</div>
+            <div id="viewTypeValue" class="viewValue">
+                {% if location.type == "com" %}
+                    Commercial
+                {% elif location.type == "res" %}
+                    Residential
+                {% elif location.type == "lot" %}
+                    Lot
+                {% else %}
+                    (Unknown)
+                {% endif %}
+            </div>
         </div>
-        <div id="viewEditLink">
-            <a href="/update/location/{{location.id}}">Edit</a>
+        <div class="viewColumnDiv">
+            <div id="viewDescriptionKey" class="viewKey">Description</div>
+            <div id="viewDescriptionValue" class="viewValue">{{ location.description }}</div>
+        </div>
+        <div class="viewColumnDiv">
+            <div id="viewPictureKey" class="viewKey">Picture</div>
+            <div id="viewPictureValue" class="viewValue">
+                {% if location.picture %}
+                    <a href="/media/{{ location.picture }}">
+                        <img src="/media/{{ location.picture }}" alt="Property picture">
+                    </a>
+                {% endif %}
+                {% if not location.picture %}
+                    (no picture loaded yet) <!--TODO Add a filler picture to indicate nothing has been loaded -->
+                {% endif %}
+            </div>
+        </div>
+
+        <div id="viewEditLinkDiv">
+            <a href="/update/location/{{ location.id }}">
+                <button>Edit Location</button>
+            </a>
         </div>
     </div>
 
