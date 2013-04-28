@@ -37,3 +37,9 @@ class Location(models.Model):
 
     def __unicode__(self):
         return "(" + str(self.id) + ") Latitude: " + str(self.latitude) + ", " + "Longitude: " + str(self.longitude);
+
+
+class GeocodeCache(models.Model):
+    address = models.CharField(max_length=200, blank=False, null=False)
+    latitude = models.DecimalField(max_digits=20, decimal_places=17)
+    longitude = models.DecimalField(max_digits=20, decimal_places=17)

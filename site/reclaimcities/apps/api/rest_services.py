@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404, HttpResponseBadRequest, \
     HttpRequest, HttpResponseServerError, HttpResponseNotAllowed
 from django.conf import settings
+from reclaimcities.apps.web.models import GeocodeCache
 
 
 try:
@@ -253,6 +254,14 @@ def geocode(request, streetAddress):
     # if not validations.is_street_address(streetAddress):
     #     return HttpResponseBadRequest('streetAddress was invalid. Only accepts letters, numbers, dots, dashes, and spaces')
 
+
+    # Try to get from cache first
+    geocodeCaches = GeocodeCache.objects.filter(address=streetAddress.lower())
+    if(geocodeCaches):
+        points = conversions.geocode_caches_to_points(geocodeCaches)
+        return json_response(points)
+
+    # Retrieve from Geocoder
     # TODO parameterize some of this information in a config file
     params = {
         "apiKey": settings.TAMU_GEOCODING_API_KEY,
@@ -268,5 +277,13 @@ def geocode(request, streetAddress):
 
     r = requests.get("http://geoservices.tamu.edu/Services/Geocode/WebService/GeocoderWebServiceHttpNonParsed_V04_01.aspx", params=params)
     points = conversions.tamu_locations_to_points(r.text)
+
+    # Save in cache
+    for point in points:
+        geocodeCache = GeocodeCache()
+        geocodeCache.address = streetAddress.lower()
+        geocodeCache.latitude = point["coordinates"][0];
+        geocodeCache.longitude = point["coordinates"][1];
+        geocodeCache.save()
 
     return json_response(points)
