@@ -3,3 +3,5 @@ Pillow
 anyjson
 requests
 simplejson
+PyMySQL
+MySQL-python
