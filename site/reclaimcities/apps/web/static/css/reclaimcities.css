@@ -212,11 +212,13 @@ body a:hover, .clickableText:hover {
     display: block;
     text-transform: uppercase;
     font-weight: bold;
+    color: #67564C;
 }
 
 #locationInfoDiv .locationInfoValue, #viewAddressValue, #viewTypeValue {
     display: block;
     text-transform: capitalize;
+    color: #62B6A9;
 }
 
 .viewValue {
@@ -254,6 +256,7 @@ body a:hover, .clickableText:hover {
 .locationFormField label {
     text-transform: uppercase;
     font-weight: bold;
+    color: #67564C;
 }
 
 #locationSubmitField {
