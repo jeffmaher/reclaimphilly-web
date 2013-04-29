@@ -142,8 +142,8 @@ RC.map = function (divId) {
     that.markNearbyLocations = function (streetAddress, callbackFunction) {
         RC.GEOCODER.geocode(streetAddress, function (points) {
             if (points.length <= 0) {
-                //TODO error callback
-                alert("Add error callback -- Search address not found");
+                //TODO add an error callback or could not locate the address
+                alert("Sorry! Could not locate that address. Double check it and try again. Entered addresses should only be the street address (no need for city, state, zip, etc.).")
             }
 
             // Search point
@@ -224,7 +224,7 @@ RC.OSM.geocode = function (streetAddress, callbackFunction) {
             RC.OSM.locationsToPoints(osmLocations, callbackFunction);
         },
         error: function (jqxhr, msg, errorThrown) {
-            alert("Geocoding failed: " + msg + " -- TODO add better error handling");
+            alert("Sorry! Our server had an error trying to locate the address. Please let us know and/or try back later.");
         }
     });
 };
@@ -277,7 +277,7 @@ RC.TAMU.geocode = function (streetAddress, callbackFunction) {
             }
         },
         error: function (jqxhr, msg, errorThrown) {
-            alert("Geocoding failed: " + msg + " -- TODO add better error handling");
+            alert("Sorry! Our server had an error trying to locate the address. Please let us know and/or try back later.");
         }
     });
 };
@@ -348,7 +348,7 @@ RC.Data.checkIfPointIsInData = function (searchPoint, inDataCallback, notInDataC
             }
         },
         error: function (jqxhr, msg, errorThrown) {
-            alert("Error connecting to backend: " + msg + " -- TODO add better error handling");
+            alert("Sorry! Our server had an error trying to locate the address. Please let us know and/or try back later.");
         }
     });
 
