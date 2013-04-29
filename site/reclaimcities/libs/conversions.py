@@ -61,3 +61,20 @@ def tamu_locations_to_points(tamuLocationsStr):
 
     return points
 
+def geocode_cache_to_point(geocodeCache):
+    point = {
+        "type":"Point",
+        "coordinates":[geocodeCache.latitude, geocodeCache.longitude],
+        "properties": {
+            "address": geocodeCache.address
+        }
+    }
+
+    return point
+
+def geocode_caches_to_points(geocodeCaches):
+    points = []
+    for geocodeCache in geocodeCaches:
+        points.append(geocode_cache_to_point(geocodeCache))
+    return points
+
