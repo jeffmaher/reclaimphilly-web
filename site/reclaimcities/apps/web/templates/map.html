@@ -7,6 +7,7 @@
      */
     var rcMap; // init after document is ready
     var points = [];
+    var isResultsDivHidden = true;
 
     /**
      * Initialize the map
@@ -45,9 +46,8 @@
                 $('#resultTable').append('<div id="resultsNoneFound">No vacant properties found near that address. (If the map appears in the wrong place, we could not locate the address)</div>');
             }
 
-            var resultDiv = $('#resultDiv');
-            resultDiv.show();
-            $(document.body).animate({'scrollTop': resultDiv.offset().top});
+            //$('#resultDiv').show();
+            $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
         });
     }
 
@@ -129,9 +129,8 @@
                     //finished
 
                     if(points.length > 0) {
-                        var resultDiv = $('#resultDiv');
-                        resultDiv.show();
-                        $(document.body).animate({'scrollTop': resultDiv.offset().top});
+                        //$('#resultDiv').show();
+                        $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
                         rcMap.focus(points[0]);
                     }
                 }
@@ -213,6 +212,17 @@
         return '<a href="' + url + '">Add Location</a>';
     }
 
+    function showHideResultDiv() {
+        if(isResultsDivHidden) {
+            $('#resultDiv').show();
+        }
+        else {
+            $('#resultDiv').hide();
+        }
+
+        isResultsDivHidden = !isResultsDivHidden;
+    }
+
 
     </script>
 {% endblock %}
@@ -227,6 +237,7 @@
         <input id="streetAddressInput" type="text" value=""/>
         <input type="button" onclick="search()" value="Search"/>
         <input type="button" onclick="findLocations()" value="Add"/>
+        <a id="showHideResultDivLink" class="linkSpan" onclick="showHideResultDiv()">Show/Hide Results Table</a>
     </div>
 
     <div id="resultDiv">
@@ -243,6 +254,5 @@
             <li><img src="{% static 'images/pin-commercial.png' %}"/>Commercial</li>
             <li><img src="{% static 'images/pin-lot.png' %}"/>Lot</li>
         </ul>
-
     </div>
 {% endblock %}
