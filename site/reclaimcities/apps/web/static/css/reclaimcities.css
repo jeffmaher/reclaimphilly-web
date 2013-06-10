@@ -44,8 +44,8 @@ body a:hover, .clickableText:hover {
     border-top-style: solid;
     border-top-color: #67564C;
 
-    border-bottom-style: solid;
     border-bottom-color: #62B6A9;
+    border-bottom-style: solid;
 }
 
 #navDiv ul {
@@ -286,4 +286,21 @@ body a:hover, .clickableText:hover {
 
 .addressText {
     text-transform: capitalize;
+}
+
+#footerDiv {
+    border-top-color: #62B6A9;
+    border-top-style: solid;
+}
+
+.linkSpan {
+    color: white;
+}
+
+.linkSpan :hover{
+    text-decoration-line: underline;
+}
+
+#showHideResultDivLink {
+    display: none;
 }
