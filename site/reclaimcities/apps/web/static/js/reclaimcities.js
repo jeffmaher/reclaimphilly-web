@@ -128,9 +128,14 @@ RC.map = function (divId) {
     };
 
     that.focus = function (point, zoom) {
-        that.map.setView(L.latLng(point.coordinates), zoom);
-//        that.map.panTo(L.latLng(point.coordinates));
-//        that.map.setZoom(zoom == null ? RC.ZOOM_DEFAULT : zoom);
+        // Convert to numbers for IE 9 or less
+        var latNum = Number(point.coordinates[0]);
+        var lonNum = Number(point.coordinates[1]);
+        var zoomNum = (zoom == null) ? RC.ZOOM_DEFAULT : Number(zoom);
+
+        // Center the map on the focus area and zoom
+        var latLng = L.latLng(latNum, lonNum);
+        that.map.setView(latLng, zoomNum);
     };
 
     /**
