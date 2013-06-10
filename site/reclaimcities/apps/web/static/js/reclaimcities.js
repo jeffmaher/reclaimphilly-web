@@ -128,8 +128,9 @@ RC.map = function (divId) {
     };
 
     that.focus = function (point, zoom) {
-        that.map.panTo(L.latLng(point.coordinates));
-        that.map.setZoom(zoom == null ? RC.ZOOM_DEFAULT : zoom);
+        that.map.setView(L.latLng(point.coordinates), zoom);
+//        that.map.panTo(L.latLng(point.coordinates));
+//        that.map.setZoom(zoom == null ? RC.ZOOM_DEFAULT : zoom);
     };
 
     /**
