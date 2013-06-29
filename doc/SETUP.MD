@@ -7,14 +7,14 @@ Python Setup
 ====
 
 1. Install Python 2.7.x and setup your PATH to reference the Python binaries
-2. Install PIP package manager: `easy_install pip`
-3. Install Virtualenv: `pip install virtualenv`
+2. Install PIP package manager: `[sudo] easy_install pip`
+3. Install Virtualenv: `[sudo] pip install virtualenv`
 
 Project Setup
 ====
 1. Navigate into the project (reclaimphilly-web)
 2. `virtualenv env`
-3. `source env/bin/active`
+3. `source env/bin/activate`
 4. `pip install -r requirements.txt`
 5. `cd site`
 6. `python manage.py syncdb`
