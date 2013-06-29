@@ -120,6 +120,9 @@ def get_location_by_id(request, id):
     """
 
     location = LOCATION_SERVICE.get_location(id=id)
+    if not location:
+        raise Http404
+
     points = conversions.location_to_point(location)
 
     return json_response(points)
