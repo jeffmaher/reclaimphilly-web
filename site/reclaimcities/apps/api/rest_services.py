@@ -253,10 +253,8 @@ def geocode(request, streetAddress):
     if request.method != 'GET':
         return HttpResponseNotAllowed(['GET'])
 
-    # TODO Move to services.py
-    # if not validations.is_street_address(streetAddress):
-    #     return HttpResponseBadRequest('streetAddress was invalid. Only accepts letters, numbers, dots, dashes, and spaces')
-
+    if not streetAddress:
+        raise Http404
 
     # Try to get from cache first
     geocodeCaches = GeocodeCache.objects.filter(address=streetAddress.lower())
