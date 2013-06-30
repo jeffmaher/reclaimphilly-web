@@ -19,9 +19,9 @@ class Location(models.Model):
     address = models.CharField(max_length=200, blank=True, null=True)
 
     # Valid types
-    VALID_TYPES = ("com", "lot", "res")
+    VALID_TYPES = ("nrs", "lot", "res")
     LOCATION_TYPES = ( # Keep this in-sync with VALID_TYPES
-                       ("com", "Commercial"),
+                       ("nrs", "Non-residential"),
                        ("lot", "Lot"),
                        ("res", "Residential")
     )
@@ -34,6 +34,9 @@ class Location(models.Model):
     # The size should be limited via the web server (to prevent massive uploads)
     # http://stackoverflow.com/a/6195637/249016
     picture = models.ImageField(upload_to="images/locations", blank=True, null=True)
+
+    upVotes = models.IntegerField(default=0)
+    downVotes = models.IntegerField(default=0)
 
     def __unicode__(self):
         return "(" + str(self.id) + ") Latitude: " + str(self.latitude) + ", " + "Longitude: " + str(self.longitude);
