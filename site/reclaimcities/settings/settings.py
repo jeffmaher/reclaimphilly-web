@@ -3,22 +3,21 @@ import os
 
 BASE_DIR = os.getcwd()
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-     ('admin', 'admin@blahblahblahblah.com'),
+     ('admin', 'beta@reclaimphilly.org'),
 )
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-		#'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dev_database.sqlite',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
+		'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'beta_database',                      # Or path to database file if using sqlite3.
+        'USER': 'pacdc1',                      # Not used with sqlite3.
+        'PASSWORD': 'ac6eed71',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
         #'PORT': '3306', #MySQL
@@ -50,7 +49,7 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'media/'
+MEDIA_ROOT = '/home/pacdc1/webapps/beta_media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -62,7 +61,7 @@ MEDIA_URL = '/media/'
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 
-STATIC_ROOT = ''
+STATIC_ROOT = '/home/pacdc1/webapps/beta_static'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -73,7 +72,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR, 'static'),
+	'/home/pacdc1/webapps/beta_django/reclaimcities-web/reclaimcities/apps/web/static',
 )
 
 # List of finder classes that know how to find static files in
@@ -85,7 +84,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'c8a@&amp;&amp;5w^^csp5mtjh%l6dxbz$+*pv3r44qg32r7szx5!8l5v4'
+SECRET_KEY = 'w2qm0@d8s!w7dfytx0f9kse1mxcve9exh^3wlw6&@)9oq5gs_c'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -159,4 +158,4 @@ LOGGING = {
     }
 }
 
-TAMU_GEOCODING_API_KEY = "ADD KEY HERE"
+TAMU_GEOCODING_API_KEY = "c1d795253faa40379b4c192685a9219d"
