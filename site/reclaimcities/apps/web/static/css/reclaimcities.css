@@ -101,10 +101,11 @@ body a:hover, .clickableText:hover {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
+    text-align: center;
 }
 
 #streetAddressInput {
-    width: 60%;
+    width: 40%;
 }
 
 #resultDiv {
