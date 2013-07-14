@@ -304,3 +304,7 @@ body a:hover, .clickableText:hover {
 #showHideResultDivLink {
     display: none;
 }
+
+#twitter {
+    text-align: center;
+}
