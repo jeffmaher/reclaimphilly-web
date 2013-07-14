@@ -88,8 +88,8 @@ RC.map = function (divId) {
         else if( "properties" in point && "type" in point.properties){
             var type = point.properties.type;
 
-            if (type == "com") {
-                icon = RC.Pins.Commercial;
+            if (type == "nrs") {
+                icon = RC.Pins.Nonresidential;
             }
             else if (type == "res") {
                 icon = RC.Pins.Residential;
@@ -392,8 +392,8 @@ RC.Pins = {
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x.png',
         iconAnchor: [24, 65]
     }),
-    Commercial: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-commercial.png',
+    Nonresidential: L.icon({
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-nonresidential.png',
        	iconAnchor: [24, 65]
     }),
     Residential: L.icon({
