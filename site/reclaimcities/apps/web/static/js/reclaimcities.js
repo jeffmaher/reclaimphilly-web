@@ -17,7 +17,7 @@
 // Reclaim Cities object
 //TODO externalize settings (don't forget about the geocoder)
 var RC = {
-    TILE_SET_URL: "http://tile.stamen.com/terrain/{z}/{x}/{y}.jpg",
+    TILE_SET_URL: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
     CITY: "Philadelphia",
     STATE: "PA",
     COUNTRY: "USA",
@@ -26,7 +26,7 @@ var RC = {
     ZOOM_DEFAULT: 15,
     ZOOM_MAX: 18,
     SEARCH_RADIUS_DEFAULT: 0.5, // miles //TODO Can we add some of these to configuration?
-    MAP_ATTRIBUTION: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+    MAP_ATTRIBUTION: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
 };
 
 //----------------------------------
