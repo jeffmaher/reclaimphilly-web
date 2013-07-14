@@ -16,7 +16,7 @@ class Location(models.Model):
     # Physical location data
     latitude = models.DecimalField(max_digits=20, decimal_places=17)
     longitude = models.DecimalField(max_digits=20, decimal_places=17)
-    address = models.CharField(max_length=200, blank=True, null=True)
+    address = models.CharField(max_length=200, blank=True, null=True, unique=True)
 
     # Valid types
     VALID_TYPES = ("nrs", "lot", "res")
