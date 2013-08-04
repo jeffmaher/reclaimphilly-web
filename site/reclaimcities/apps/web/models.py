@@ -1,4 +1,6 @@
 from django.db import models
+from hashlib import md5
+import random
 
 # Create your models here.
 class Location(models.Model):
@@ -33,7 +35,10 @@ class Location(models.Model):
     # Picture
     # The size should be limited via the web server (to prevent massive uploads)
     # http://stackoverflow.com/a/6195637/249016
-    picture = models.ImageField(upload_to="images/locations", blank=True, null=True)
+    def upload_to(instance, filename):
+        new_filename = md5("%s/%s/%i" % (instance.address, filename, random.randint(1, 99999999))).hexdigest()
+        return "images/locations/%s/%s.jpeg" % ("-".join(instance.address.lower().split()), new_filename)
+    picture = models.ImageField(upload_to=upload_to, blank=True, null=True)
 
     upVotes = models.IntegerField(default=0)
     downVotes = models.IntegerField(default=0)
