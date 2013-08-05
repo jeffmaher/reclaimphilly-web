@@ -1,5 +1,4 @@
 import requests
-import pprint
 
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404, HttpResponseBadRequest, \
@@ -201,7 +200,6 @@ def add_location(request): #, latitude, longitude, lot_type, address=None, pictu
     try:
         location = LOCATION_SERVICE.add_location(latitude, longitude, lot_type, address, pictures, description)
     except Exception as e:
-        print e
         return HttpResponseServerError('Was unable to add the new location due to an error: %s' % e)
 
     # return the location that was just added

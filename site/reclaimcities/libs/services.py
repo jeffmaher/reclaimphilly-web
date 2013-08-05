@@ -56,7 +56,6 @@ class LocationService():
                     setattr(new_location, "picture%i" % i, ImageField().clean(picture))
                     i += 1
         except ValidationError as ve:
-            print ve
             e = Exception(self)
             e.message = '; '.join(ve.messages)
             raise e
