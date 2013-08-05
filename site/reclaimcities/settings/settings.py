@@ -167,3 +167,9 @@ LOGGING = {
 }
 
 TAMU_GEOCODING_API_KEY = "ADD KEY HERE"
+
+#import any site specific settings
+try:
+    from reclaimcities.settings.local_settings import *
+except ImportError:
+    pass
