@@ -1,8 +1,14 @@
 # Django settings for reclaimcities project.
 import os
 
-BASE_DIR = os.path.dirname(os.path.realpath(__file__))
-print BASE_DIR
+BASE_DIR = os.path.split(
+    os.path.split(
+        os.path.dirname(
+            os.path.realpath(__file__)
+        )
+    )[0]
+)[0]
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -17,7 +23,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 		#'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.path.join(os.path.join(BASE_DIR, "../.."), 'dev_database.sqlite'),                      # Or path to database file if using sqlite3.
+        'NAME': os.path.join(BASE_DIR, 'dev_database.sqlite'),                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
@@ -160,4 +166,4 @@ LOGGING = {
     }
 }
 
-TAMU_GEOCODING_API_KEY = "5f7a7d1081514f77ab7814f3e0beb4ee" # "ADD KEY HERE"
+TAMU_GEOCODING_API_KEY = "ADD KEY HERE"
