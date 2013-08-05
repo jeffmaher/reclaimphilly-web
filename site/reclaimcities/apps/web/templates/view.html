@@ -9,7 +9,7 @@
             type: "Point",
             coordinates: [{{ location.latitude }}, {{ location.longitude }}],
             properties: {
-                type: "{{ location.type }}"
+                lot_type: "{{ location.lot_type }}"
             }
         };
 
@@ -33,11 +33,11 @@
 
             <div id="viewTypeKey" class="viewKey">Type</div>
             <div id="viewTypeValue" class="viewValue">
-                {% if location.type == "nrs" %}
+                {% if location.lot_type == "nrs" %}
                     Non-residential
-                {% elif location.type == "res" %}
+                {% elif location.lot_type == "res" %}
                     Residential
-                {% elif location.type == "lot" %}
+                {% elif location.lot_type == "lot" %}
                     Lot
                 {% else %}
                     (Unknown)
@@ -49,15 +49,17 @@
             <div id="viewDescriptionValue" class="viewValue">{{ location.description }}</div>
         </div>
         <div class="viewColumnDiv">
-            <div id="viewPictureKey" class="viewKey">Picture</div>
+            <div id="viewPictureKey" class="viewKey">Pictures</div>
             <div id="viewPictureValue" class="viewValue">
-                {% if location.picture %}
-                    <a href="/media/{{ location.picture }}">
-                        <img src="/media/{{ location.picture }}" alt="Property picture">
-                    </a>
+                {% if location.pictures %}
+                    {% for picture in location.pictures %}
+                        <a href="{{ picture }}">
+                            <img src="{{ picture }}" alt="Property picture">
+                        </a>
+                    {% endfor %}
                 {% endif %}
-                {% if not location.picture %}
-                    (no picture loaded yet) <!--TODO Add a filler picture to indicate nothing has been loaded -->
+                {% if not location.pictures %}
+                    (no picture(s) loaded yet) <!--TODO Add a filler picture to indicate nothing has been loaded -->
                 {% endif %}
             </div>
         </div>

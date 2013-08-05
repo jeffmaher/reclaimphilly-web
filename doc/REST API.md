@@ -22,22 +22,24 @@ It returns the added GeoJSON `Point` if successful. If it fails, it sends an HTT
 - `description`: A description of the location
 - `latitude`: The latitude of the location
 - `longitude`: The longitude of the location
-- `type`: The type of location. The following values are valid:
+- `lot_type`: The type of location. The following values are valid:
 	- `LOT`: Lot
 	- `RES`: Residential
 	- `NRS`: Non-residential
 
 #### POST Body Arguments
 
-- `picture` (optional): An image file of the location
+- `picture1` (optional): An image file of the location
+- `picture2` (optional): An image file of the location
+- `picture3` (optional): An image file of the location
 
 ### POST Request Example
 
-`/services/location?address=1500%20s%2017th%20st&description=I%20added%20this %20location&latitude=39.9766090206&longitude=-75.163548700326&type=RES`
+`/services/location?address=1500%20s%2017th%20st&description=I%20added%20this %20location&latitude=39.9766090206&longitude=-75.163548700326&lot_type=RES`
 
 or prior to encoding:
 
-`/services/location?address=1500 s 17th st&description=I added this location&latitude=39.9766090206&longitude=-75.163548700326&type=RES`
+`/services/location?address=1500 s 17th st&description=I added this location&latitude=39.9766090206&longitude=-75.163548700326&lot_type=RES`
 
 ### POST Response Example
 
@@ -45,7 +47,7 @@ or prior to encoding:
 	  "type": "Point",
 	  "properties": {
 	    "description": "I added this location",
-	    "type": "res",
+	    "lot_type": "res",
 	    "id": 4,
 	    "address": "1500 s 17th st"
 	  },
@@ -92,7 +94,7 @@ or before encoding:
 	    ]
 	  }
 	]
-	
+
 The `address` property will not be populated by the default geocoder, but if the location is already in the system, there will be an `address` value.
 
 ### Notes
@@ -122,7 +124,11 @@ Getting details for location #1:
 	{
 	  "type": "Point",
 	  "properties": {
-	    "picture": "\/media\/images\/locations\/img1.jpg",
+	    "pictures": [
+	        "\/media\/images\/locations\/img1.jpg",
+            "\/media\/images\/locations\/img2.jpg",
+            "\/media\/images\/locations\/img3.jpg"
+        ],
 	    "description": "Test Non-residential",
 	    "type": "nrs",
 	    "id": 1,
@@ -136,7 +142,7 @@ Getting details for location #1:
 
 ## Location Search
 
-Gets all locations in the system within a defined distance of a latitude and longitude coordinate. 
+Gets all locations in the system within a defined distance of a latitude and longitude coordinate.
 
 ### Address
 
@@ -162,9 +168,12 @@ Assuming there are three locations near 1600 S 17th St, the following would be r
 	  {
 	    "type": "Point",
 	    "properties": {
-	      "picture": "\/media\/images\/locations\/img1.jpg",
+	      "pictures": [
+	        "\/media\/images\/locations\/img1.jpg",
+            "\/media\/images\/locations\/img2.jpg"
+	      ],
 	      "description": "Test Non-residential",
-	      "type": "nrs",
+	      "lot_type": "nrs",
 	      "id": 1,
 	      "address": "1600 s 17th st"
 	    },
@@ -176,9 +185,9 @@ Assuming there are three locations near 1600 S 17th St, the following would be r
 	  {
 	    "type": "Point",
 	    "properties": {
-	      "picture": "\/media\/images\/locations\/img2.jpg",
+	      "pictures": ["\/media\/images\/locations\/img3.jpg"],
 	      "description": "Test lot",
-	      "type": "lot",
+	      "lot_type": "lot",
 	      "id": 2,
 	      "address": "1700 S 17th St"
 	    },
@@ -190,9 +199,9 @@ Assuming there are three locations near 1600 S 17th St, the following would be r
 	  {
 	    "type": "Point",
 	    "properties": {
-	      "picture": "\/media\/images\/locations\/img3.jpg",
+	      "pictures": ["\/media\/images\/locations\/img4.jpg"],
 	      "description": "Test residential",
-	      "type": "res",
+	      "lot_type": "res",
 	      "id": 3,
 	      "address": "1600 S 16th St"
 	    },
@@ -202,7 +211,7 @@ Assuming there are three locations near 1600 S 17th St, the following would be r
 	    ]
 	  }
 	]
-	
+
 ## Location Update
 
 The command allows the properties to be updated on an existing location within the system.
@@ -225,14 +234,16 @@ All query arguments are optional. The properties of the location will not be upd
 
 - `address`: The updated address for the location
 - `description`: The updated description for the location
-- `type`: The updated type for the location. Can be one of the following fields:
+- `lot_type`: The updated type for the location. Can be one of the following fields:
 	- `LOT`: Lot
 	- `RES`: Residential
 	- `NRS`: Non-residential
 
 #### POST Body Arguments
 
-- `picture` (optional): An image file of the location
+- `picture1` (optional): An image file of the location
+- `picture2` (optional): An image file of the location
+- `picture3` (optional): An image file of the location
 
 ### POST Request Example
 
@@ -249,9 +260,12 @@ or prior to encoding:
 	{
 	  "type": "Point",
 	  "properties": {
-	    "picture": "\/media\/images\/locations\/img1.jpg",
+	    "pictures": [
+	        "\/media\/images\/locations\/img1.jpg",
+            "\/media\/images\/locations\/img2.jpg"
+	    ],
 	    "description": "I updated this location's details!",
-	    "type": "nrs",
+	    "lot_type": "nrs",
 	    "id": 1,
 	    "address": "1600 s 17th st"
 	  },
@@ -260,4 +274,4 @@ or prior to encoding:
 	    -75.173280578901
 	  ]
 	}
-	
+

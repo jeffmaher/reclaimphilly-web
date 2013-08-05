@@ -52,20 +52,31 @@ def update_location(request, id=None):
 
     if request.method == "POST":
         updateData = location.__dict__
-        updateFiles = {"picture":location.picture}
+        updateFiles = {"picture1":location.picture1,
+                       "picture2": location.picture2,
+                       "picture3": location.picture3,}
 
         # Set fields the form/request doesn't have set
         if 'description' in request.POST:
             updateData['description'] = request.POST['description']
 
-        if 'type' in request.POST:
-            updateData['type'] = request.POST['type']
+        if 'lot_type' in request.POST:
+            updateData['lot_type'] = request.POST['lot_type']
 
-        if 'picture' in request.FILES:
-            updateFiles['picture'] = request.FILES['picture']
+        if 'picture1' in request.FILES:
+            updateFiles['picture1'] = request.FILES['picture1']
 
+        if 'picture2' in request.FILES:
+            updateFiles['picture2'] = request.FILES['picture2']
+
+        if 'picture1' in request.FILES:
+            updateFiles['picture3'] = request.FILES['picture3']
+
+#TODO Must also remember to delete the files from disk
         if 'picture-clear' in request.POST:
-            updateFiles['picture'] = None
+            updateFiles['picture1'] = None
+            updateFiles['picture2'] = None
+            updateFiles['picture3'] = None
             updateData['picture-clear'] = request.POST['picture-clear']
 
         form = AddLocation(data=updateData, files=updateFiles, instance=location)

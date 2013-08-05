@@ -17,7 +17,7 @@ def location_to_point(location):
         "coordinates": [location.latitude, location.longitude],
         "properties": {
             "id": location.id,
-            "type": location.type
+            "lot_type": location.lot_type
         }
     }
 
@@ -27,8 +27,7 @@ def location_to_point(location):
     if location.description:
         point["properties"]["description"] = location.description
 
-    if location.picture:
-        point["properties"]["picture"] = location.picture.url
+    point["properties"]["pictures"] = location.pictures
 
     return point
 

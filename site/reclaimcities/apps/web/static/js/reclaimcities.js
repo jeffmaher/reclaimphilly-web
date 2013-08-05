@@ -85,16 +85,16 @@ RC.map = function (divId) {
         if (icon != null) {
             // do nothing
         }
-        else if( "properties" in point && "type" in point.properties){
-            var type = point.properties.type;
+        else if( "properties" in point && "lot_type" in point.properties){
+            var lot_type = point.properties.lot_type;
 
-            if (type == "nrs") {
+            if (lot_type == "nrs") {
                 icon = RC.Pins.Nonresidential;
             }
-            else if (type == "res") {
+            else if (lot_type == "res") {
                 icon = RC.Pins.Residential;
             }
-            else if (type == "lot") {
+            else if (lot_type == "lot") {
                 icon = RC.Pins.Lot;
             }
             else {

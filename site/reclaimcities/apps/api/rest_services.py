@@ -1,4 +1,5 @@
 import requests
+import pprint
 
 from django.core.exceptions import ValidationError
 from django.http import HttpResponse, Http404, HttpResponseBadRequest, \
@@ -52,9 +53,10 @@ def get_locations_in_radius(request): # , latitude, longitude, radius=0
     Returned, is a GeoJSON array of Points with the following properties
     - id
     - address
-    - picture (URL)
+    - pictures [URL , URL, URL] Up to three URLs
     - description
-    - type   TODO plusjeff This is coming back as the DB string, not the descriptive English version -- change that
+    - lot_type   TODO plusjeff This is coming back as the DB string, not the descriptive English version -- change that
+                 (joe - I think that's because type is a Python reserved word that shows the type of an object)
 
     Example Request:
     http://localhost:8000/services/locations?latitude=1&longitude=2&radius=3
@@ -109,9 +111,9 @@ def get_location_by_id(request, id):
     Returned, is a GeoJSON Point object with the following properties
     - id
     - address
-    - picture (URL)
+    - pictures [URL , URL, URL] Up to three URLs
     - description
-    - type   TODO This is coming back as the DB string, not the descriptive English version -- change that
+    - lot_type   TODO This is coming back as the DB string, not the descriptive English version -- change that
 
     Sample request:
     http://localhost:8000/services/location/123
@@ -128,11 +130,12 @@ def get_location_by_id(request, id):
     return json_response(points)
 
 @csrf_exempt
-def add_location(request): #, latitude, longitude, type, address=None, picture=None, description=None
+def add_location(request): #, latitude, longitude, lot_type, address=None, pictures=None, description=None
     """
     TODO document
     TODO allow it to accept GeoJSON point as input too
     """
+
     # Validate request - must be POST
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
@@ -155,10 +158,10 @@ def add_location(request): #, latitude, longitude, type, address=None, picture=N
     except ValueError:
         return HttpResponseBadRequest('Non-numeric longitude parameter')
 
-    # Validate type - required, must be be a valid type
+    # Validate lot_type - required, must be be a valid type
     try:
-        type = request.POST['type']
-        if not Location.VALID_TYPES.count(type):
+        lot_type = request.POST['lot_type']
+        if not Location.VALID_TYPES.count(lot_type):
             return HttpResponseBadRequest('Invalid type parameter. Valid options are: ' + str(Location.VALID_TYPES))
     except KeyError:
         return HttpResponseBadRequest('Missing type parameter. Valid options are ' + str(Location.VALID_TYPES))
@@ -169,12 +172,21 @@ def add_location(request): #, latitude, longitude, type, address=None, picture=N
         return HttpResponseBadRequest(
             'Invalid address parameter. Can only contain letters, spaces, numbers, periods, and dashes')
 
-    # Validate picture - optional, must be under a certain size limit
+    # Validate pictures - optional, must be under a certain size limit
     # TODO figure out how to do this
+    pictures = []
     try:
-        picture = request.FILES['picture']
+        picture1 = request.FILES.get('picture1')
+        picture2 = request.FILES.get('picture2')
+        picture3 = request.FILES.get('picture3')
+        if picture1:
+            pictures.append(picture1)
+        if picture2:
+            pictures.append(picture2)
+        if picture3:
+            pictures.append(picture3)
     except KeyError:
-        picture = None
+        pictures = []
 
     # Validate description - optional; limit to 200 characters; only letters, numbers, common punctuation, dashes
     try:
@@ -187,30 +199,32 @@ def add_location(request): #, latitude, longitude, type, address=None, picture=N
 
     # Add the location
     try:
-        location = LOCATION_SERVICE.add_location(latitude, longitude, type, address, picture, description)
+        location = LOCATION_SERVICE.add_location(latitude, longitude, lot_type, address, pictures, description)
     except Exception as e:
-        return HttpResponseServerError('Was unable to add the new location due to an error: ' + e.message)
+        print e
+        return HttpResponseServerError('Was unable to add the new location due to an error: %s' % e)
 
     # return the location that was just added
     return get_location_by_id(request, location.id)
 
 @csrf_exempt
-def update_location(request, id): # type=None, address=None, picture=None, description=None
+def update_location(request, id): # lot_type=None, address=None, pictures=None, description=None
     """
     TODO document
     TODO allow it to accept GeoJSON point as input too
+    TODO when adding new pictures, first fill any empty slots before replacing
     """
     # Validate request - must be POST
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
 
-    # Validate type - required, must be be a valid type
+    # Validate lot_type - required, must be be a valid type
     try:
-        type = request.POST['type']
-        if not Location.VALID_TYPES.count(type):
+        lot_type = request.POST['lot_type']
+        if not Location.VALID_TYPES.count(lot_type):
             return HttpResponseBadRequest('Invalid type parameter. Valid options are: ' + str(Location.VALID_TYPES))
     except KeyError:
-        type = None
+        lot_type = None
 
     # Validate address - optional, must only have letters, numbers, periods, and dashes
     try:
@@ -221,11 +235,20 @@ def update_location(request, id): # type=None, address=None, picture=None, descr
     except KeyError:
         address = None
 
-    # Validate picture - optional, must be under a certain size limit
+    # Validate pictures - optional, must be under a certain size limit
+    pictures = []
     try:
-        picture = request.FILES['picture']
+        picture1 = request.FILES.get('picture1')
+        picture2 = request.FILES.get('picture2')
+        picture3 = request.FILES.get('picture3')
+        if picture1:
+            pictures.append(picture1)
+        if picture2:
+            pictures.append(picture2)
+        if picture3:
+            pictures.append(picture3)
     except KeyError:
-        picture = None
+        pictures = []
 
     # Validate description - optional; limit to 200 characters; only letters, numbers, common punctuation, dashes
     try:
@@ -238,7 +261,7 @@ def update_location(request, id): # type=None, address=None, picture=None, descr
 
     # Add the location
     try:
-        location = LOCATION_SERVICE.update_location(id=id, type=type, address=address, picture=picture, description=description)
+        location = LOCATION_SERVICE.update_location(id=id, lot_type=lot_type, address=address, pictures=pictures, description=description)
     except Exception as e:
         return HttpResponseServerError('Was unable to add the new location due to an error: ' + e.message)
 
