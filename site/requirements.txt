@@ -3,5 +3,7 @@ Pillow
 anyjson
 requests
 simplejson
-PyMySQL
-MySQL-python
+
+#### For MySQL installs, uncomment the below
+#PyMySQL
+#MySQL-python
