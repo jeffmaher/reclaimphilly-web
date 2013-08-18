@@ -258,4 +258,13 @@
             <li><img src="{% static 'images/pin-lot.png' %}"/>Lot</li>
         </ul>
     </div>
+		
+    <script>
+        $("#streetAddressInput").keypress(function(event) {
+            if (event.which == 13) // ENTER key was pressed
+            {
+                search();
+            }
+        });
+    </script>
 {% endblock %}
