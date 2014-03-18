@@ -29,6 +29,8 @@ def about(request):
 
 def add_location(request):
     if(request.method == "POST"):
+        request.POST[u"upVotes"] = 0
+        request.POST[u"downVotes"] = 0
         form = AddLocation(request.POST, request.FILES)
 
         if(form.is_valid()):
