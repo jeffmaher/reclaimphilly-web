@@ -26,7 +26,8 @@ var RC = {
     ZOOM_DEFAULT: 15,
     ZOOM_MAX: 18,
     SEARCH_RADIUS_DEFAULT: 0.5, // miles //TODO Can we add some of these to configuration?
-    MAP_ATTRIBUTION: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.'
+    MAP_ATTRIBUTION: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
+	SMALL_PIN_ICON_ANCHOR: [11.5, 33]
 };
 
 //----------------------------------
@@ -389,19 +390,19 @@ RC.Utils.addUrlParams = function (baseUrl, params) {
 
 RC.Pins = {
     X: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x.png',
-        iconAnchor: [24, 65]
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x-small.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
     }),
     Nonresidential: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-nonresidential.png',
-       	iconAnchor: [24, 65]
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-nonresidential-small.png',
+       	iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
     }),
     Residential: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential.png',
-        iconAnchor: [24, 65]
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential-small.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
     }),
     Lot: L.icon({
-        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot.png',
-        iconAnchor: [24, 65]
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot-small.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
     })
 };
