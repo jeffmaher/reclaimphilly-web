@@ -17,7 +17,7 @@
 // Reclaim Cities object
 //TODO externalize settings (don't forget about the geocoder)
 var RC = {
-    TILE_SET_URL: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+    //TILE_SET_URL: "http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", // Default OSM map tiles, disabled for Stamen maps instead
     CITY: "Philadelphia",
     STATE: "PA",
     COUNTRY: "USA",
@@ -44,6 +44,7 @@ RC.map = function (divId) {
             scrollWheelZoom: false
         }
     );
+
     that.markersArray = [];
 
     /**
@@ -51,11 +52,9 @@ RC.map = function (divId) {
      */
     that.init = function () {
         var map = that.map.setView(L.latLng(RC.LATITUDE_DEFAULT, RC.LONGITUDE_DEFAULT), RC.ZOOM_DEFAULT);
-        var tileLayer = L.tileLayer(RC.TILE_SET_URL, {
-            maxZoom: RC.ZOOM_MAX,
-            attribution: RC.MAP_ATTRIBUTION
-        });
 
+		// Add Stamen tile set
+		var tileLayer = new L.StamenTileLayer("terrain");
         tileLayer.addTo(map);
     };
 
