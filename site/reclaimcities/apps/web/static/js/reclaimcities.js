@@ -23,7 +23,7 @@ var RC = {
     COUNTRY: "USA",
     LATITUDE_DEFAULT: 39.9522,
     LONGITUDE_DEFAULT: -75.1642,
-    ZOOM_DEFAULT: 15,
+    ZOOM_DEFAULT: 17,
     ZOOM_MAX: 18,
     SEARCH_RADIUS_DEFAULT: 0.5, // miles //TODO Can we add some of these to configuration?
     MAP_ATTRIBUTION: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.',
