@@ -231,9 +231,9 @@
 {% block content %}
     <div id="searchDiv">
 {#		<img src="{% static 'images/logo-pin-small.png' %}"/>#}
-        <input id="streetAddressInput" type="text" value="1500 Market St"/>
-        <input type="button" onclick="search()" value="Search"/>
-        <input type="button" onclick="findLocations()" value="Add"/>
+        <input id="streetAddressInput" type="text" placeholder="Enter a street address. Example: 1500 Market St"/>
+        <input class="button" type="button" onclick="search()" value="Search"/>
+        <input class="button" type="button" onclick="findLocations()" value="Add"/>
         <a id="showHideResultDivLink" class="linkSpan" onclick="showHideResultDiv()">Show/Hide Results Table</a>
     </div>
 
