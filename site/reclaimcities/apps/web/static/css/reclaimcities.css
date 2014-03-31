@@ -38,6 +38,17 @@ body a:hover, .clickableText:hover {
     text-decoration: underline;
 }
 
+#logoText {
+	font-weight: bolder;
+}
+
+#logoTextReclaim {
+	color: #67564C;
+}
+
+#logoTextCity {
+	color: #62B6A9;
+}
 
 #navDiv {
     text-transform: uppercase;
@@ -66,6 +77,13 @@ body a:hover, .clickableText:hover {
     width: 24%;
     padding-top: 12px;
     padding-bottom: 12px;
+
+	vertical-align: middle;
+}
+
+#navDiv ul li img {
+	vertical-align: middle;
+    margin-right: 10px;
 }
 
 #headingDiv {
