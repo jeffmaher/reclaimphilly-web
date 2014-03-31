@@ -7,7 +7,6 @@ to JSON in web services.
 because it returns more data than is necessary and isn't as clean
 as having it formatted first via these functions)
 """
-from string import split
 
 
 def location_to_point(location):
@@ -39,7 +38,7 @@ def locations_to_points(locations):
     return points
 
 def tamu_location_to_point(tamuLocationStr):
-    tamuLocation = split(tamuLocationStr,',')
+    tamuLocation = tamuLocationStr.split(',')
     point = {
         "type": "Point",
         "coordinates": [tamuLocation[3], tamuLocation[4]],
@@ -53,7 +52,7 @@ def tamu_location_to_point(tamuLocationStr):
 def tamu_locations_to_points(tamuLocationsStr):
     points = []
 
-    tamuLocationStrs = split(tamuLocationsStr, '\n')
+    tamuLocationStrs = tamuLocationsStr.split('\n')
     for tamuLocationStr in tamuLocationStrs:
         if tamuLocationStr != '':
             points.append(tamu_location_to_point(tamuLocationStr))
