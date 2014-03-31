@@ -4,6 +4,9 @@
 
  *  green/grey: #62B6A9
  *  Light grey: #DEDAD7
+
+     font-family: "Trebuchet MS", sans-serif;
+
  */
 
 
@@ -101,11 +104,16 @@ body a:hover, .clickableText:hover {
     padding-bottom: 10px;
     padding-left: 20px;
     padding-right: 20px;
-    /*text-align: center;*/
+    text-align: center;
 }
 
 #streetAddressInput {
     width: 40%;
+	font-family: "Trebuchet MS", sans-serif;
+	font-size: larger;
+	background-color: #DEDAD7;
+	border-style: none;
+	color: #67564C;
 }
 
 #resultDiv {
@@ -113,6 +121,14 @@ body a:hover, .clickableText:hover {
 }
 
 .table {
+}
+
+.button {
+	background-color: #67564C;
+	font-size: larger;
+	font-family: "Trebuchet MS", sans-serif;
+	border-style: none;
+	color: #DEDAD7;
 }
 
 .tableHeaderRow {
