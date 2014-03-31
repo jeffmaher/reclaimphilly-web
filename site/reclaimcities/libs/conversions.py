@@ -27,7 +27,8 @@ def location_to_point(location):
     if location.description:
         point["properties"]["description"] = location.description
 
-    point["properties"]["pictures"] = location.pictures
+    if location.picture:
+        point["properties"]["picture"] = location.picture.url
 
     return point
 
