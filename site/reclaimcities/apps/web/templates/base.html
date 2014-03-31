@@ -2,25 +2,25 @@
 <html>
 <head>
 {% load staticfiles %}
-{% comment %}
-Since we probalby don't want to server JS files through a Django view
-we can set some variables there that will be available to the loaded JS files.
-I namespaced them so they don't interfere with anything
-{% endcomment %}
+
+	{% comment %}
+	SET JS VARIABLES
+
+	Since we probalby don't want to server JS files through a Django view
+	we can set some variables there that will be available to the loaded JS files.
+	I namespaced them so they don't interfere with anything
+	{% endcomment %}
     <script type="text/javascript">
-        var reclaim;
-        reclaim = {'globals': {
-            'STATIC_URL': '{% static '' %}'
+        var reclaim = {
+			'globals': {
+            	'STATIC_URL': '{% static '' %}'
             }
         };
     </script>
 
-    <!--<link type="text/css" rel="stylesheet" href="{% static 'js/leaflet/leaflet.css' %}" />-->
 	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css" />
     <link type="text/css" rel="stylesheet" href="{% static 'css/reclaimcities.css' %}" />
 
-
-    <!--<script src="{% static 'js/leaflet/leaflet.js' %}"></script>-->
 	<script src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js"></script>
 	<script type="text/javascript" src="http://maps.stamen.com/js/tile.stamen.js?v1.2.4"></script>
 
@@ -34,42 +34,25 @@ I namespaced them so they don't interfere with anything
 
 <body>
 
+{% block nav %}
 <div id="navDiv">
     <ul>
         <li><a class="navItem" href="/map">Map</a></li>
-        <li><a class="navItem" href="/blog">Blog</a></li>
-        <li><a class="navItem" href="/resources">Resources</a></li>
         <li><a class="navItem" href="/about">About</a></li>
         <li><a class="navItem" href="/help">Help</a></li>
     </ul>
 </div>
-
-{% block heading %}
-<div id="headingDiv">
-    <div id="logoDiv">
-        <img id="headingLogo" src="{% static 'images/logo_beta.png' %}">
-    </div>
-    <div id="descriptionDiv">
-        A transparent approach to abandoned &amp; vacant property in our communities; for the people, by the people.
-    </div>
-    <div id="socialMediaDiv">
-        <ul>
-        	<!-- Add social media links to your project -->
-            <li><a href="https://twitter.com/reclaimphl" target="_social"><img src="{% static 'images/twitter.png' %}"/></a></li>
-            <li><a href="https://www.facebook.com/reclaimphl" target="_social"><img src="{% static 'images/facebook.png' %}"/></a></li>
-            <li><a href="https://plus.google.com/107250676878634271531" target="_social"><img src="{% static 'images/googleplus.png' %}"/></a></li>
-        </ul>
-    </div>
-</div>
-{% endblock %}
+{% endblock nav %}
 
 {% block content %} {% endblock %}
 
+{% block footer %}
 <div id="footerDiv">
     <p>The Reclaim Cities engine was originally developed by <a href="http://www.pacdc.org/" target="_pacdc">PACDC</a> and volunteers. Feel free to <a href="http://github.com/ReclaimCities" target="_github">use our code</a> for your city.</p>
     <p><a href="http://openstreetmaps.org" target="_new">Map by OpenStreetMap</a> - <a href="http://geoservices.tamu.edu" target="_new">Geocoding by Texas A&amp;M Geoservices</a>
     <p>Feedback on the beta? E-mail us at <a href="mailto:beta@reclaimphilly.org">beta@reclaimphilly.org</a></p>
 </div>
+{% endblock footer %}
 
 </body>
 </html>
