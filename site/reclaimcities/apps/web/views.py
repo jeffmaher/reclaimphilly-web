@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest
-from reclaimcities.apps.web.forms import AddLocation
+from forms import AddLocation
 from reclaimcities.libs.services import LocationService
 from reclaimcities.apps.web.models import Location
 
