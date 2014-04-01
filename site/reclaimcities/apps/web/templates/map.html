@@ -48,7 +48,7 @@
             }
 
             //$('#resultDiv').show();
-            $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
+            $(document.body).animate({'scrollTop': $('#searchDiv').offset().top});
         });
     }
 
@@ -131,7 +131,7 @@
 
                     if(points.length > 0) {
                         //$('#resultDiv').show();
-                        $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
+                        $(document.body).animate({'scrollTop': $('#searchDiv').offset().top});
                         rcMap.focus(points[0]);
                     }
                 }
@@ -173,7 +173,7 @@
                 ;
 
         rcMap.addMarker(point) //TODO This references Leaflet code directly  -- see if this can be abstracted
-                .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {offset: L.point(0, -60)});
+                .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {offset: L.point(0, -20)});
 
         $('#resultTable').append(rowHtml);
 
@@ -192,7 +192,7 @@
                 ;
 
         var marker = rcMap.addMarker(point)
-                .bindPopup("Is this <span class='addressText'>" + point.properties.address + "</span>?<br>If so... " + makeAddLocationLink(point), {offset: L.point(0,-60)} );
+                .bindPopup("Is this <span class='addressText'>" + point.properties.address + "</span>?<br>If so... " + makeAddLocationLink(point), {offset: L.point(0,-20)} );
 
         if(index == 0) {
             marker.openPopup();
