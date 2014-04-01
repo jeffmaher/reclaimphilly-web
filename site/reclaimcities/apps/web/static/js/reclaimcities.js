@@ -117,6 +117,35 @@ RC.map = function (divId) {
         return marker;
     };
 
+	that.addBigMarker = function (point, callbackFunction) {
+        var icon;
+
+        if (icon != null) {
+            // do nothing
+        }
+        else if( "properties" in point && "lot_type" in point.properties){
+            var lot_type = point.properties.lot_type;
+
+            if (lot_type == "nrs") {
+                icon = RC.Pins.BigNonresidential;
+            }
+            else if (lot_type == "res") {
+                icon = RC.Pins.BigResidential;
+            }
+            else if (lot_type == "lot") {
+                icon = RC.Pins.BigLot;
+            }
+            else {
+                icon = RC.Pins.BigX;
+            }
+        }
+        else {
+            icon = RC.Pins.BigX;
+        }
+
+        return that.addMarker(point, icon);
+    };
+
     that.addMarkers = function (points, icon, callbackFunction) {
         var markers = [];
         for (var i = 0; i < points.length; i++) {
@@ -162,7 +191,7 @@ RC.map = function (divId) {
                     var point = nearbyPoints[i];
                     that.addMarker(point)
                         .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {
-                            offset: L.point(0,-33)
+                            offset: L.point(0,-20)
                     });//);
                 }
 
@@ -403,5 +432,21 @@ RC.Pins = {
     Lot: L.icon({
         iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot-small.png',
         iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
-    })
+    }),
+	BigX: L.icon({
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-x.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
+    }),
+    BigNonresidential: L.icon({
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-nonresidential.png',
+       	iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
+    }),
+    BigResidential: L.icon({
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-residential.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
+    }),
+    BigLot: L.icon({
+        iconUrl: reclaim.globals.STATIC_URL + 'images/pin-lot.png',
+        iconAnchor: RC.SMALL_PIN_ICON_ANCHOR
+    }),
 };

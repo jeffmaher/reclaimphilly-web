@@ -17,6 +17,11 @@
     margin: 0px auto;
 }
 
+#viewAddMapDiv {
+	height: 400px;
+	width: 400px;
+}
+
 html {
     height: 100%
 }
@@ -36,6 +41,10 @@ body a, .clickableText {
 body a:hover, .clickableText:hover {
     font-weight: bold;
     text-decoration: underline;
+}
+
+form {
+	display: inline;
 }
 
 #logoText {
@@ -231,48 +240,29 @@ body a:hover, .clickableText:hover {
     text-align: center;
 }
 
-#locationDiv, .viewRowDiv {
+.viewRowDiv {
     width: 90%;
     margin: 0 auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
     margin-bottom: 20px;
 }
 
-#locationInfoDiv {
-    width: 25%;
-    display: inline-table;
-}
-
-#locationInfoDiv li {
-    list-style: none;
-    margin-bottom: 10px;
-}
-
-#locationInfoDiv .locationInfoLabel, .viewKey {
+.viewKey {
     display: block;
     text-transform: uppercase;
     font-weight: bold;
     color: #67564C;
 }
 
-#locationInfoDiv .locationInfoValue, #viewAddressValue, #viewTypeValue {
+#viewAddressValue, #viewTypeValue {
     display: block;
     text-transform: capitalize;
-    color: #62B6A9;
 }
 
 .viewValue {
     padding-bottom: 10px;
-}
-
-#locationForm {
-    display: inline-table;
-    width: 70%;
-}
-
-#locationForm .locationFormField {
-    margin-bottom: 10px;
+	color: #62B6A9;
 }
 
 .errorlist {
@@ -294,21 +284,8 @@ body a:hover, .clickableText:hover {
     display: inline;
 }
 
-.locationFormField label {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #67564C;
-}
-
-#locationSubmitField {
-    padding-top: 10px;
-}
-
-#locationForm #id_description {
-    width: 50%;
-}
-
 .viewColumnDiv {
+	/*vertical-align: top;*/
     width: 30%;
     display: inline-table;
 }
@@ -348,4 +325,8 @@ body a:hover, .clickableText:hover {
 
 #twitter {
     text-align: center;
+}
+
+#contentDiv {
+	padding-top: 30px;
 }
