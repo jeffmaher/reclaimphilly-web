@@ -1,4 +1,4 @@
-# Reclaim Philly Web
+# Reclaim Philly Web (Pretty Branch)
 
 This is the web interface and backend for [Reclaim Philly](http://www.reclaimphilly.org), a civic app that aims to catalog all the vacant properties in Philadelphia via official government data and crowdsourced knowledge. It is the primary development project for Reclaim Cities (the underlying engine, as seen from what this is forked from).
 

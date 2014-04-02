@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load staticfiles %}
 
 {% block header %}
     <script type="text/javascript">
@@ -47,7 +48,7 @@
             }
 
             //$('#resultDiv').show();
-            $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
+            $(document.body).animate({'scrollTop': $('#searchDiv').offset().top});
         });
     }
 
@@ -130,7 +131,7 @@
 
                     if(points.length > 0) {
                         //$('#resultDiv').show();
-                        $(document.body).animate({'scrollTop': $('#mapDiv').offset().top});
+                        $(document.body).animate({'scrollTop': $('#searchDiv').offset().top});
                         rcMap.focus(points[0]);
                     }
                 }
@@ -172,7 +173,7 @@
                 ;
 
         rcMap.addMarker(point) //TODO This references Leaflet code directly  -- see if this can be abstracted
-                .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {offset: L.point(0, -60)});
+                .bindPopup("<span class='addressText'>" + point.properties.address + "</span><br><a href='/location/" + point.properties.id + "'>View Details</a>", {offset: L.point(0, -20)});
 
         $('#resultTable').append(rowHtml);
 
@@ -191,7 +192,7 @@
                 ;
 
         var marker = rcMap.addMarker(point)
-                .bindPopup("Is this <span class='addressText'>" + point.properties.address + "</span>?<br>If so... " + makeAddLocationLink(point), {offset: L.point(0,-60)} );
+                .bindPopup("Is this <span class='addressText'>" + point.properties.address + "</span>?<br>If so... " + makeAddLocationLink(point), {offset: L.point(0,-20)} );
 
         if(index == 0) {
             marker.openPopup();
@@ -229,17 +230,10 @@
 
 {% block content %}
     <div id="searchDiv">
-        <p>
-            <strong>INSTRUCTIONS</strong>&nbsp;
-            Enter a street address (example: <em>1500 Chestnut St</em>).
-        </p>
-        <p>
-            <em>Search</em> finds all vacancies within a half mile radius of the entered address.<br/>
-            <em>Add</em> finds the address, then gives the option of adding it as a vacant property
-        </p>
-        <input id="streetAddressInput" type="text" value=""/>
-        <input type="button" onclick="search()" value="Search"/>
-        <input type="button" onclick="findLocations()" value="Add"/>
+{#		<img src="{% static 'images/logo-pin-small.png' %}"/>#}
+        <input id="streetAddressInput" type="text" placeholder="Enter a street address. Example: 1500 Market St"/>
+        <input class="button" type="button" onclick="search()" value="Search"/>
+        <input class="button" type="button" onclick="findLocations()" value="Add"/>
         <a id="showHideResultDivLink" class="linkSpan" onclick="showHideResultDiv()">Show/Hide Results Table</a>
     </div>
 
@@ -251,7 +245,6 @@
 
     <div id="mapKeyDiv">
         <ul>
-            {% load staticfiles %}
             <li class="mapKeyLabel">Map Key</li>
             <li><img src="{% static 'images/pin-residential.png' %}"/>Residential</li>
             <li><img src="{% static 'images/pin-nonresidential.png' %}"/>Non-residential</li>

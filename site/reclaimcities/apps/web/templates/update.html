@@ -28,9 +28,9 @@
         };
 
         $(document).ready(function () {
-            rcMap = RC.map("mapDiv");
-            rcMap.addMarker(point);
-            rcMap.focus(point, 18);
+            rcMap = RC.map("viewAddMapDiv");
+            rcMap.addBigMarker(point);
+            rcMap.focus(point, 15);
         });
     </script>
 
@@ -38,74 +38,57 @@
 
 {% block content %}
 
-    <div id="locationDiv">
-        <div id="locationInfoDiv">
-            <ul>
-                <li>
-                    <span class="locationInfoLabel">Address</span>
-                    <span class="locationInfoValue">
-                        {{ form.address.value }}
-                    </span>
-                </li>
-                                <li>
-                    <span class="locationInfoLabel">Latitude</span>
-                    <span class="locationInfoValue">
-                        {{ form.latitude.value }}
-                    </span>
-                </li>
-                                <li>
-                    <span class="locationInfoLabel">Longitude</span>
-                    <span class="locationInfoValue">
-                        {{ form.longitude.value }}
-                    </span>
-                </li>
-            </ul>
+    <div id="contentDiv">
+        <div class="viewRowDiv">
+			<div class="viewColumnDiv">
+				<div id="viewAddressKey" class="viewKey">Address</div>
+				<div id="viewAddressValue" class="viewValue">
+					{{ form.address.value }}
+				</div>
 
-        </div>
+				<div id="viewLatitudeKey" class="viewKey">Latitude</div>
+				<div id="viewLatitudeValue" class="viewValue">
+					{{ form.address.value }}
+				</div>
+				<div id="viewLongitudeKey" class="viewKey">Longitude</div>
+				<div id="viewLongitudeValue" class="viewValue">
+					{{ form.longitude.value }}
+				</div>
 
-        <form id="locationForm" action="/update/location/{{ id }}" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
+				<form id="locationForm" action="/update/location/{{ id }}" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
 
-            <input type="text" name="id" hidden value="{{ id }}"/>
+					<input type="text" name="id" hidden value="{{ id }}"/>
 
-            <div class="locationFormField">
-                {{ form.lot_type.label_tag }}
-                {{ form.lot_type }}
-                {{ form.lot_type.errors }}
-            </div>
+					<div id="viewTypeKey" class="viewKey">Type (required)</div>
+					<div class="viewValue">
+						{{ form.lot_type }}
+						{{ form.lot_type.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.description.label_tag }}
-                {{ form.description }}
-                {{ form.description.errors }}
-            </div>
+					<div id="viewDescriptionKey" class="viewKey">Description</div>
+					<div class="viewValue">
+						{{ form.description }}
+						{{ form.description.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.picture1.label_tag }}
-                {{ form.picture1 }}
-                {{ form.picture1.errors }}
-            </div>
+					<div id="viewPictureKey" class="viewKey">Picture</div>
+					<div class="viewValue">
+						{{ form.picture }}
+						{{ form.picture.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.picture2.label_tag }}
-                {{ form.picture2 }}
-                {{ form.picture2.errors }}
-            </div>
-
-            <div class="locationFormField">
-                {{ form.picture3.label_tag }}
-                {{ form.picture3 }}
-                {{ form.picture3.errors }}
-            </div>
-
-            <div id="locationSubmitField">
-                <input type="submit" value="Update Location"/>
-                <a href="/location/{{ id }}" class="cancelLink">Cancel</a>
-            </div>
-
-        </form>
+					<div id="locationSubmitField">
+						<input type="submit" class="button" value="Update Location"/>
+						<a href="/location/{{ id }}" class="cancelLink">Cancel</a>
+					</div>
+				</form>
+			</div>
+			<div class="viewColumnDiv">
+				<div class="viewKey">Map Location</div>
+				<div id="viewAddMapDiv"></div>
+			</div>
+		</div>
     </div>
-
-    <div id="mapDiv"></div>
 
 {% endblock content %}

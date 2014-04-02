@@ -28,9 +28,9 @@
         };
 
         $(document).ready(function () {
-            rcMap = RC.map("mapDiv");
-            rcMap.addMarker(point);
-            rcMap.focus(point, 18);
+            rcMap = RC.map("viewAddMapDiv");
+            rcMap.addBigMarker(point);
+            rcMap.focus(point, 15);
         });
     </script>
 
@@ -38,110 +38,96 @@
 
 {% block content %}
 
-    <div id="locationDiv">
-        <div id="locationInfoDiv">
-            <ul>
-                <li>
-                    <span class="locationInfoLabel">Address</span>
-                        <span class="locationInfoValue">
-                            {% if form.address.value %}
-                                {{ form.address.value }}
-                            {% endif %}
-                            {% if not form.address.value %}
-                                {{ address|default_if_none:"(missing)" }}
-                            {% endif %}
-                        </span>
-                </li>
-                <li>
-                    <span class="locationInfoLabel">Latitude</span>
-                        <span class="locationInfoValue">
-                            {% if form.latitude.value %}
-                                {{ form.latitude.value }}
-                            {% endif %}
-                            {% if not form.latitude.value %}
-                                {{ latitude|default_if_none:"(missing)" }}
-                            {% endif %}
-                        </span>
-                </li>
-                <li>
-                    <span class="locationInfoLabel">Longitude</span>
-                        <span class="locationInfoValue">
-                            {% if form.longitude.value %}
-                                {{ form.longitude.value }}
-                            {% endif %}
-                            {% if not form.longitude.value %}
-                                {{ longitude|default_if_none:"(missing)" }}
-                            {% endif %}
-                        </span>
-                </li>
-            </ul>
-        </div>
+    <div id="contentDiv">
+		<div class="viewRowDiv">
+			<div class="viewColumnDiv">
+				<div id="viewAddressKey" class="viewKey">Address</div>
+				<div id="viewAddressValue" class="viewValue">
+					{% if form.address.value %}
+						{{ form.address.value }}
+					{% endif %}
+					{% if not form.address.value %}
+						{{ address|default_if_none:"(missing)" }}
+					{% endif %}
+				</div>
 
-        <form id="locationForm" action="/add/location" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {# TODO Document what is going on in here #}
-            <input type="hidden" name="{{ form.address.html_name }}"
-                    {% if form.address.value %}
-                   value="{{ form.address.value }}"
-                    {% endif %}
-                    {% if not form.address.value %}
-                   value="{{ address|default_if_none:"" }}"
-                    {% endif %}
-                    />
-            <input type="hidden" name="{{ form.latitude.html_name }}"
-                    {% if form.latitude.value %}
-                   value="{{ form.latitude.value }}"
-                    {% endif %}
-                    {% if not form.latitude.value %}
-                   value="{{ latitude|default_if_none:"" }}"
-                    {% endif %}
-                    />
-            <input type="hidden" name="{{ form.longitude.html_name }}"
-                    {% if form.longitude.value %}
-                   value="{{ form.longitude.value }}"
-                    {% endif %}
-                    {% if not form.longitude.value %}
-                   value="{{ longitude|default_if_none:"" }}"
-                    {% endif %}
-                    />
+				<div id="viewLatitudeKey" class="viewKey">Latitude</div>
+				<div id="viewLatitudeValue" class="viewValue">
+					{% if form.address.value %}
+						{{ form.address.value }}
+					{% endif %}
+					{% if not form.address.value %}
+						{{ address|default_if_none:"(missing)" }}
+					{% endif %}
+				</div>
+				<div id="viewLongitudeKey" class="viewKey">Longitude</div>
+				<div id="viewLongitudeValue" class="viewValue">
+					{% if form.longitude.value %}
+						{{ form.longitude.value }}
+					{% endif %}
+					{% if not form.longitude.value %}
+						{{ longitude|default_if_none:"(missing)" }}
+					{% endif %}
+				</div>
 
-            <div class="locationFormField">
-                {{ form.lot_type.label_tag }} (required)
-                {{ form.lot_type }}
-                {{ form.lot_type.errors }}
-            </div>
+				<form action="/add/location" method="post" enctype="multipart/form-data">
+					{% csrf_token %}
+					{# TODO Document what is going on in here #}
+					<input type="hidden" name="{{ form.address.html_name }}"
+							{% if form.address.value %}
+						   value="{{ form.address.value }}"
+							{% endif %}
+							{% if not form.address.value %}
+						   value="{{ address|default_if_none:"" }}"
+							{% endif %}
+							/>
+					<input type="hidden" name="{{ form.latitude.html_name }}"
+							{% if form.latitude.value %}
+						   value="{{ form.latitude.value }}"
+							{% endif %}
+							{% if not form.latitude.value %}
+						   value="{{ latitude|default_if_none:"" }}"
+							{% endif %}
+							/>
+					<input type="hidden" name="{{ form.longitude.html_name }}"
+							{% if form.longitude.value %}
+						   value="{{ form.longitude.value }}"
+							{% endif %}
+							{% if not form.longitude.value %}
+						   value="{{ longitude|default_if_none:"" }}"
+							{% endif %}
+							/>
 
-            <div class="locationFormField">
-                {{ form.description.label_tag }}
-                {{ form.description }}
-                {{ form.description.errors }}
-            </div>
+					<div id="viewTypeKey" class="viewKey">Type (required)</div>
+					<div class="viewValue">
+						{{ form.lot_type }}
+						{{ form.lot_type.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.picture1.label_tag }}
-                {{ form.picture1 }}
-                {{ form.picture1.errors }}
-            </div>
+					<div id="viewDescriptionKey" class="viewKey">Description</div>
+					<div class="viewValue">
+						{{ form.description }}
+						{{ form.description.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.picture2.label_tag }}
-                {{ form.picture2 }}
-                {{ form.picture2.errors }}
-            </div>
+					<div id="viewPictureKey" class="viewKey">Picture</div>
+					<div class="viewValue">
+						{{ form.picture }}
+						{{ form.picture.errors }}
+					</div>
 
-            <div class="locationFormField">
-                {{ form.picture3.label_tag }}
-                {{ form.picture3 }}
-                {{ form.picture3.errors }}
-            </div>
+					<div id="locationSubmitField">
+						<input type="submit" class="button" value="Add Location"/>
+						<a href="/map" class="cancelLink">Cancel</a>
+					</div>
+				</form>
+			</div>
+			<div class="viewColumnDiv">
+				<div class="viewKey">Map Location</div>
+				<div id="viewAddMapDiv"></div>
+			</div>
+		</div>
+	</div>
 
-            <div id="locationSubmitField">
-                <input type="submit" value="Add Location"/>
-                <a href="/map" class="cancelLink">Cancel</a>
-            </div>
-        </form>
-    </div>
-
-    <div id="mapDiv"></div>
 
 {% endblock content %}

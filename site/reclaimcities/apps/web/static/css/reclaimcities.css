@@ -4,6 +4,9 @@
 
  *  green/grey: #62B6A9
  *  Light grey: #DEDAD7
+
+     font-family: "Trebuchet MS", sans-serif;
+
  */
 
 
@@ -12,6 +15,11 @@
     height: 500px;
 	width: 100%;
     margin: 0px auto;
+}
+
+#viewAddMapDiv {
+	height: 400px;
+	width: 400px;
 }
 
 html {
@@ -35,6 +43,22 @@ body a:hover, .clickableText:hover {
     text-decoration: underline;
 }
 
+form {
+	display: inline;
+}
+
+#logoText {
+	font-weight: bolder;
+}
+
+#logoTextReclaim {
+	color: #67564C;
+}
+
+#logoTextCity {
+	color: #62B6A9;
+}
+
 #navDiv {
     text-transform: uppercase;
     width: 100%;
@@ -46,6 +70,8 @@ body a:hover, .clickableText:hover {
 
     border-bottom-color: #62B6A9;
     border-bottom-style: solid;
+	box-shadow: 0px 10px 5px #888888;
+	font-size: x-large;
 }
 
 #navDiv ul {
@@ -57,9 +83,16 @@ body a:hover, .clickableText:hover {
 #navDiv ul li {
     display: inline-block;
     text-align: center;
-    width: 18%;
+    width: 24%;
     padding-top: 12px;
     padding-bottom: 12px;
+
+	vertical-align: middle;
+}
+
+#navDiv ul li img {
+	vertical-align: middle;
+    margin-right: 10px;
 }
 
 #headingDiv {
@@ -102,10 +135,18 @@ body a:hover, .clickableText:hover {
     padding-left: 20px;
     padding-right: 20px;
     text-align: center;
+
+	box-shadow: inset 0 10px 9px -7px rgba(0,0,0,0.4);
+    padding: 20px;
 }
 
 #streetAddressInput {
     width: 40%;
+	font-family: "Trebuchet MS", sans-serif;
+	font-size: larger;
+	background-color: #DEDAD7;
+	border-style: none;
+	color: #67564C;
 }
 
 #resultDiv {
@@ -113,6 +154,14 @@ body a:hover, .clickableText:hover {
 }
 
 .table {
+}
+
+.button {
+	background-color: #67564C;
+	font-size: larger;
+	font-family: "Trebuchet MS", sans-serif;
+	border-style: none;
+	color: #DEDAD7;
 }
 
 .tableHeaderRow {
@@ -191,48 +240,29 @@ body a:hover, .clickableText:hover {
     text-align: center;
 }
 
-#locationDiv, .viewRowDiv {
+.viewRowDiv {
     width: 90%;
     margin: 0 auto;
-    padding-left: 10px;
-    padding-right: 10px;
+    /*padding-left: 10px;*/
+    /*padding-right: 10px;*/
     margin-bottom: 20px;
 }
 
-#locationInfoDiv {
-    width: 25%;
-    display: inline-table;
-}
-
-#locationInfoDiv li {
-    list-style: none;
-    margin-bottom: 10px;
-}
-
-#locationInfoDiv .locationInfoLabel, .viewKey {
+.viewKey {
     display: block;
     text-transform: uppercase;
     font-weight: bold;
     color: #67564C;
 }
 
-#locationInfoDiv .locationInfoValue, #viewAddressValue, #viewTypeValue {
+#viewAddressValue, #viewTypeValue {
     display: block;
     text-transform: capitalize;
-    color: #62B6A9;
 }
 
 .viewValue {
     padding-bottom: 10px;
-}
-
-#locationForm {
-    display: inline-table;
-    width: 70%;
-}
-
-#locationForm .locationFormField {
-    margin-bottom: 10px;
+	color: #62B6A9;
 }
 
 .errorlist {
@@ -254,22 +284,9 @@ body a:hover, .clickableText:hover {
     display: inline;
 }
 
-.locationFormField label {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: #67564C;
-}
-
-#locationSubmitField {
-    padding-top: 10px;
-}
-
-#locationForm #id_description {
-    width: 50%;
-}
-
 .viewColumnDiv {
-    width: 30%;
+	/*vertical-align: top;*/
+    width: 40%;
     display: inline-table;
 }
 
@@ -308,4 +325,8 @@ body a:hover, .clickableText:hover {
 
 #twitter {
     text-align: center;
+}
+
+#contentDiv {
+	padding-top: 30px;
 }

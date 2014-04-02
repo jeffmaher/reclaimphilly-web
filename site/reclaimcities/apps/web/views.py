@@ -1,7 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponseNotFound, HttpResponseBadRequest
-from forms import AddLocation
+from reclaimcities.apps.web.forms import AddLocation
 from reclaimcities.libs.services import LocationService
 from reclaimcities.apps.web.models import Location
 
@@ -14,14 +14,8 @@ def index(request):
 def map(request):
     return render_to_response("map.html")
 
-def blog(request):
-    return render_to_response("blog.html")
-
 def help(request):
     return render_to_response("help.html")
-
-def resources(request):
-    return render_to_response("resources.html")
 
 def about(request):
     return render_to_response("about.html")
@@ -54,9 +48,7 @@ def update_location(request, id=None):
 
     if request.method == "POST":
         updateData = location.__dict__
-        updateFiles = {"picture1":location.picture1,
-                       "picture2": location.picture2,
-                       "picture3": location.picture3,}
+        updateFiles = {"picture":location.picture}
 
         # Set fields the form/request doesn't have set
         if 'description' in request.POST:
@@ -65,20 +57,12 @@ def update_location(request, id=None):
         if 'lot_type' in request.POST:
             updateData['lot_type'] = request.POST['lot_type']
 
-        if 'picture1' in request.FILES:
-            updateFiles['picture1'] = request.FILES['picture1']
+        if 'picture' in request.FILES:
+            updateFiles['picture'] = request.FILES['picture']
 
-        if 'picture2' in request.FILES:
-            updateFiles['picture2'] = request.FILES['picture2']
-
-        if 'picture1' in request.FILES:
-            updateFiles['picture3'] = request.FILES['picture3']
-
-#TODO Must also remember to delete the files from disk
+		#TODO Must also remember to delete the files from disk
         if 'picture-clear' in request.POST:
-            updateFiles['picture1'] = None
-            updateFiles['picture2'] = None
-            updateFiles['picture3'] = None
+            updateFiles['picture'] = None
             updateData['picture-clear'] = request.POST['picture-clear']
 
         form = AddLocation(data=updateData, files=updateFiles, instance=location)
